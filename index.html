@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DAM SYSTEM: Rishiganga natural dam breach, 3D prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body>
+<div id="stage" aria-label="3D simulation of the Rishiganga valley"></div>
+<div id="labels" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="brand"><b>DAM SYSTEM</b><span>PS26161 prototype: natural dam breach on the Rishiganga, Chamoli</span></div>
+  <div class="clock" role="group" aria-label="Simulation controls">
+    <div><div class="t" id="clk">T+00:00:00</div></div>
+    <div class="st" id="clkState">Model idle. Breach not started.</div>
+    <button class="btn primary" id="btnPlay" aria-label="Run simulation">Run</button>
+    <button class="btn" id="btnFF">Skip to end</button>
+    <button class="btn" id="btnReset" aria-label="Reset simulation">Reset</button>
+    <select class="btn" id="selSpeed" aria-label="Playback speed"><option value="1">Slow</option><option value="4">Normal</option><option value="12" selected>Fast</option><option value="40">Max</option></select>
+    <button class="btn toggle-intel" id="btnIntel" aria-expanded="false">Live data</button>
+  </div>
+</header>
+
+<aside class="story" aria-live="polite"><div class="scroll" id="story"></div>
+  <div class="foot"><button class="btn" id="prevCh">Previous</button><button class="btn primary" id="nextCh">Next chapter</button></div>
+</aside>
+
+<aside class="intel" id="intel" aria-label="Live model data">
+  <h2>Live model <small id="scenName">Large breach</small></h2>
+  <dl class="kv" id="liveKv"></dl>
+  <canvas class="ch" id="cvHydro" aria-label="Discharge hydrographs"></canvas>
+  <div class="swatches" id="hydroKey"></div>
+  <div class="sep"></div>
+  <h2>Map layer <small id="layerNote"></small></h2>
+  <div class="seg" id="segView" role="group" aria-label="Map layer">
+    <button data-v="0" aria-pressed="true">Water</button><button data-v="1" aria-pressed="false">Depth</button><button data-v="2" aria-pressed="false">Speed</button><button data-v="3" aria-pressed="false">Arrival</button><button data-v="4" aria-pressed="false">Hazard</button>
+  </div>
+  <div class="legend" id="legend" style="margin-top:8px"></div>
+  <div style="display:flex;gap:10px;align-items:center;margin-top:10px;font-size:12.5px;color:var(--ink-2)">
+    <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="chkEnv"> Peak envelope</label>
+    <label style="display:flex;gap:6px;align-items:center;flex:1">Depth ×<input type="range" id="rngWX" min="1" max="8" step="0.5" value="3" style="flex:1"><span id="wxv">3</span></label>
+  </div>
+  <div class="sep"></div>
+  <h2>Camera</h2>
+  <div class="actions" style="margin:4px 0 0">
+    <button class="btn" data-cam="overview">Valley</button><button class="btn" data-cam="breach">Breach</button><button class="btn" data-cam="raini">Raini</button><button class="btn" data-cam="tapovan">Tapovan</button><button class="btn" data-cam="joshimath">Joshimath</button><button class="btn" id="btnFollow" aria-pressed="false">Follow wave</button>
+  </div>
+</aside>
+
+<nav class="rail" id="rail" aria-label="Chapters"></nav>
+<div class="hint" id="hint">Drag to orbit, scroll to zoom, right drag to pan. Space runs or pauses.</div>
+<div class="loader" id="loader"><div><b>DAM SYSTEM</b><span id="loadMsg">Building terrain and river network</span></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="src/core/damcore.js"></script>
+<script src="src/basin/gangaDataBundle.js"></script>
+<script src="src/basin/basinData.js"></script>
+<script src="src/basin/basinCore.js"></script>
+<script src="src/basin/basinView.js"></script>
+<script src="src/basin/basinUI.js"></script>
+<script src="src/basin/basin2d.js"></script>
+<script src="src/app/map2d.js"></script>
+<script src="src/app/viewManager.js"></script>
+<script src="src/app/app.js"></script>
+</body>
+</html>

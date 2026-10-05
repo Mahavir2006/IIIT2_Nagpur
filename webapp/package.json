@@ -1,0 +1,52 @@
+{
+  "name": "webapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "verify": "tsx scripts/verify.ts",
+    "verify:hindcast": "tsx scripts/verify.ts hindcast",
+    "verify:basin": "tsx scripts/basin_verify.ts",
+    "verify:dem": "tsx scripts/verify_dem.ts",
+    "verify:engine": "tsx scripts/verify-engine.ts",
+    "verify:chamoli": "tsx scripts/verify-chamoli.ts",
+    "fetch:local-dem": "tsx scripts/fetch_local_dem.ts",
+    "data:build": "tsx scripts/build-scenario.ts",
+    "data:districts": "tsx scripts/build-districts.ts",
+    "deploy:preview": "npx vercel@latest",
+    "deploy": "npx vercel@latest --prod"
+  },
+  "dependencies": {
+    "@arcgis/core": "^5.1.26",
+    "@deck.gl/core": "^9.4.0",
+    "@deck.gl/extensions": "^9.4.0",
+    "@deck.gl/geo-layers": "^9.0.6",
+    "@deck.gl/layers": "^9.4.0",
+    "@deck.gl/mesh-layers": "^9.4.0",
+    "@deck.gl/react": "^9.4.0",
+    "@loaders.gl/core": "^4.5.2",
+    "@loaders.gl/terrain": "^4.5.2",
+    "lucide-react": "^1.48.0",
+    "maplibre-gl": "^6.11.2",
+    "next": "16.3.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-map-gl": "^8.1.3",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

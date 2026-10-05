@@ -1,0 +1,240 @@
+{
+  "id": "tehri",
+  "name": "Tehri Dam break (hypothetical)",
+  "river": "Bhagirathi → Ganga",
+  "region": "Tehri Garhwal / Pauri Garhwal / Dehradun, Uttarakhand, India",
+  "event": "dam-break",
+  "hypothetical": true,
+  "historical": null,
+  "summary": "Hypothetical breach of the 260.5 m Tehri earth-and-rockfill dam with the reservoir at FRL, routed over real SRTM terrain down the Bhagirathi past Koteshwar to Devprayag and down the Ganga to Rishikesh.",
+  "bbox": [
+    78.25,
+    30.05,
+    78.62,
+    30.45
+  ],
+  "grid": {
+    "cols": 592,
+    "rows": 741,
+    "dx": 60.034,
+    "dy": 60.024
+  },
+  "dem": {
+    "url": "/data/tehri/elevation.bin",
+    "format": "f32le",
+    "source": "AWS Open Data Terrain Tiles, Terrarium encoding, zoom 13 (https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png); SRTM-derived in this region; box-filter area-averaged to 60 m cells",
+    "retrieved": "2026-09-28",
+    "min": 318.3,
+    "max": 2758.6,
+    "conditioning": "0 void cells filled; 1992 single-cell pits raised to their lowest neighbour (mean 1.8 m, max 32.3 m); minimal-change (L1 isotonic) strictly-descending fit along the traced river path: 1256 of 1568 river-path cells changed by >0.5 m (657 raised, 599 lowered; median |dz| 4.2 m; 157 cells >10 m; max raise 20.4 m, max lowering 21.0 m)"
+  },
+  "exposureUrl": "/data/tehri/exposure.json",
+  "riverUrl": "/data/tehri/river.json",
+  "dam": {
+    "name": "Tehri Dam",
+    "type": "Earth and rockfill embankment dam",
+    "lng": 78.477813,
+    "lat": 30.372537,
+    "crest": [
+      [
+        78.480241,
+        30.37306
+      ],
+      [
+        78.477813,
+        30.372537
+      ],
+      [
+        78.474019,
+        30.37172
+      ]
+    ],
+    "crestElevation": 839.5,
+    "height": 224.3,
+    "crestLength": 615,
+    "reservoir": "Tehri reservoir (Bhagirathi and Bhilangana arms)",
+    "publishedVolume": 3540000000,
+    "publishedVolumeSource": "Gross storage 3.54 km³ (THDC India figure, as given in Wikipedia \"Tehri Dam\"); compared with the DEM table at FRL EL 830 m (THDC).",
+    "stageStorage": {
+      "elevation": [
+        615,
+        620,
+        625,
+        630,
+        635,
+        640,
+        645,
+        650,
+        655,
+        660,
+        665,
+        670,
+        675,
+        680,
+        685,
+        690,
+        695,
+        700,
+        705,
+        710,
+        715,
+        720,
+        725,
+        730,
+        735,
+        740,
+        745,
+        750,
+        755,
+        760,
+        765,
+        770,
+        775,
+        780,
+        785,
+        790,
+        795,
+        800,
+        805,
+        810,
+        815,
+        820,
+        825,
+        830,
+        835,
+        839.5,
+        840,
+        845,
+        849.5
+      ],
+      "volume": [
+        0,
+        8104,
+        449124,
+        1343766,
+        4300996,
+        9341073,
+        15926400,
+        25426185,
+        37383877,
+        52313879,
+        70925788,
+        91688529,
+        117260821,
+        144325460,
+        176776418,
+        212288839,
+        250914498,
+        292572352,
+        339113370,
+        399143824,
+        461474596,
+        526076194,
+        596779105,
+        671678552,
+        756434155,
+        844568871,
+        936117593,
+        1032924315,
+        1135872194,
+        1242904950,
+        1356199307,
+        1473497268,
+        1595717340,
+        1728029050,
+        1863917303,
+        2009315927,
+        2160940131,
+        2319921612,
+        2486076895,
+        2662274738,
+        2846594606,
+        3040127674,
+        3243109201,
+        3455194971,
+        3676872823,
+        3884548641,
+        3908008368,
+        4148051389,
+        4371946040
+      ],
+      "method": "dem",
+      "note": "Integrated on a 90 m grid resampled from Terrarium z12 tiles over [78.25, 30.3, 78.8, 30.75]: cells hydraulically connected to the reservoir below each level without crossing the dam line (minimax priority flood), volume = Σ(level − ground)·cell area. DEM volume at 830 m = 3.46 km³ vs published 3.54 km³ (-2%); SRTM (Feb 2000) predates impoundment (2006) so the basin is dry in the DEM. Not rescaled. At the initial level the reservoir spans [78.317, 30.363, 78.640, 30.607], which extends OUTSIDE the simulation box (the table still counts it)."
+    },
+    "initialLevel": 830,
+    "downstreamBearing": 166
+  },
+  "breach": {
+    "mode": "landslide-dam",
+    "finalWidth": 221.2,
+    "finalBottomElevation": 615.3,
+    "formationTime": 1800,
+    "sideSlope": 1.1,
+    "note": "Froehlich (2008) regression: Bavg = 0.27·k0·Vw^0.32·Hb^0.04 = 378 m, tf = 63.2·√(Vw/(g·Hb²)) = 88.2 min, with k0 = 1 (piping (internal erosion): with the reservoir at FRL 830 m, 9.5 m below the crest, overtopping cannot start the breach), Vw = 3455.2 million m³ (DEM table, initial level 830 m above breach bottom), Hb = 224.2 m (crest − SRTM bed). finalWidth is the bottom width Bavg − z·Hb; side slope 0.7 (H:V, Froehlich 2008 piping). Hb and/or Vw are beyond the range of Froehlich's calibration data, so treat these as order-of-magnitude defaults."
+  },
+  "defaults": {
+    "manning": 0.05,
+    "duration": 21600,
+    "frameInterval": 60
+  },
+  "view": {
+    "longitude": 78.48906,
+    "latitude": 30.32827,
+    "zoom": 11.6,
+    "pitch": 58,
+    "bearing": 175
+  },
+  "basinHandoff": {
+    "reachId": "ganga_1",
+    "outletLngLat": [
+      78.27344,
+      30.05027
+    ]
+  },
+  "notes": [
+    "Hypothetical scenario for education and research; not a safety assessment of Tehri Dam, which is a heavily engineered and monitored structure.",
+    "The published 260.5 m height with top of dam at 839.5 m implies a base at EL 579 m, below the SRTM river bed (~615 m), i.e. it is measured from foundation level; DamSpec.height here is crest minus the SRTM valley floor just downstream of the dam, as the contract defines it.",
+    "SRTM (Feb 2000) predates impoundment (2006), so the reservoir basin is dry terrain in the DEM; the Koteshwar dam and reservoir (commissioned 2011-12) and the partially built Tehri embankment of 2000 are not represented as structures.",
+    "Dam axis location: OSM way 93091865 (Tehri Dam) centroid snapped to the highest-accumulation cell within 500 m.",
+    "Elevation is SRTM-derived (Feb 2000) surface elevation area-averaged to 60 m: no river bathymetry, and channels narrower than a cell are not resolved (valley floors are biased high where the gorge is narrower than 60 m).",
+    "DEM conditioning: 0 void cells filled; 1992 single-cell pits raised to their lowest neighbour (mean 1.8 m, max 32.3 m); minimal-change (L1 isotonic) strictly-descending fit along the traced river path: 1256 of 1568 river-path cells changed by >0.5 m (657 raised, 599 lowered; median |dz| 4.2 m; 157 cells >10 m; max raise 20.4 m, max lowering 21.0 m).",
+    "Stage-storage is DEM-integrated (see stageStorage.note); compared, not rescaled, to the published volume.",
+    "DamSpec.height = crest 839.5 m − lowest SRTM bed within 700 m downstream of the axis (615.3 m).",
+    "Default duration = river path length 109.7 km at an assumed 3 m/s mean front speed, rounded up to whole hours (heuristic, not a prediction).",
+    "Populations: OSM population tag where present, otherwise a typical value for the place type (city 100,000, town 10,000, village 1,000, hamlet 150), flagged populationSource \"typical\" — not a census figure.",
+    "basinHandoff: the traced path leaves the box at the outlet point; the flood continues in basin reach ganga_1 of data/ganga/rivers.json."
+  ],
+  "sources": [
+    {
+      "label": "Elevation: AWS Open Data Terrain Tiles (Mapzen/Tilezen Terrarium), SRTM-derived here",
+      "url": "https://registry.opendata.aws/terrain-tiles/"
+    },
+    {
+      "label": "Terrain Tiles data sources and required attribution (Tilezen joerd)",
+      "url": "https://github.com/tilezen/joerd/blob/master/docs/attribution.md"
+    },
+    {
+      "label": "Places, roads, bridges, hydro plants: © OpenStreetMap contributors (ODbL), via Overpass API",
+      "url": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "label": "Froehlich, D.C. (2008) Embankment dam breach parameters and their uncertainties. J. Hydraul. Eng. 134(12):1708-1721",
+      "url": "https://doi.org/10.1061/(ASCE)0733-9429(2008)134:12(1708)"
+    },
+    {
+      "label": "THDC India Ltd — Tehri HPP (Stage-I): dam height 260.5 m, length at top 575 m, FRL EL 830 m, MFL EL 835 m, dead storage level EL 740 m",
+      "url": "https://www.thdc.co.in/en/projects/hydro/tehri-dam-HPP-stage-I"
+    },
+    {
+      "label": "Wikipedia, \"Tehri Dam\": 3.54 km³ reservoir, 52 km² surface area, base width 1,128 m",
+      "url": "https://en.wikipedia.org/wiki/Tehri_Dam"
+    },
+    {
+      "label": "Top of dam EL 839.5 m: THDC salient-features tables as reproduced in secondary documents (not on THDC's live page at retrieval)"
+    },
+    {
+      "label": "Overpass API query (2026-09-28)",
+      "url": "https://overpass-api.de/api/interpreter"
+    }
+  ]
+}

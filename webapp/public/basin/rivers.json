@@ -1,0 +1,387 @@
+{
+  "reaches": [
+    {
+      "id": "rishiganga_1",
+      "name": "Rishiganga & Dhauliganga Upper",
+      "up": "ronti_confluence",
+      "down": "vishnuprayag",
+      "length_km": 27.0,
+      "slope": 0.045,
+      "width_m": 45,
+      "polyline": [
+        [
+          79.75,
+          30.38
+        ],
+        [
+          79.68,
+          30.48
+        ],
+        [
+          79.56,
+          30.56
+        ]
+      ]
+    },
+    {
+      "id": "bhagirathi_1",
+      "name": "Bhagirathi Headwaters (Gaumukh to Uttarkashi)",
+      "up": "gaumukh",
+      "down": "uttarkashi",
+      "length_km": 85.0,
+      "slope": 0.025,
+      "width_m": 50,
+      "polyline": [
+        [
+          79.08,
+          30.93
+        ],
+        [
+          78.94,
+          30.99
+        ],
+        [
+          78.44,
+          30.73
+        ]
+      ]
+    },
+    {
+      "id": "bhagirathi_2",
+      "name": "Bhagirathi (Uttarkashi to Tehri Dam)",
+      "up": "uttarkashi",
+      "down": "tehri_node",
+      "length_km": 52.0,
+      "slope": 0.015,
+      "width_m": 65,
+      "polyline": [
+        [
+          78.44,
+          30.73
+        ],
+        [
+          78.48,
+          30.38
+        ]
+      ]
+    },
+    {
+      "id": "bhagirathi_3",
+      "name": "Bhagirathi (Tehri Dam to Devprayag)",
+      "up": "tehri_node",
+      "down": "devprayag",
+      "length_km": 42.0,
+      "slope": 0.009,
+      "width_m": 80,
+      "polyline": [
+        [
+          78.48,
+          30.38
+        ],
+        [
+          78.6,
+          30.15
+        ]
+      ]
+    },
+    {
+      "id": "alaknanda_1",
+      "name": "Alaknanda (Vishnuprayag to Chamoli)",
+      "up": "vishnuprayag",
+      "down": "chamoli",
+      "length_km": 38.0,
+      "slope": 0.018,
+      "width_m": 70,
+      "polyline": [
+        [
+          79.56,
+          30.56
+        ],
+        [
+          79.32,
+          30.41
+        ]
+      ]
+    },
+    {
+      "id": "alaknanda_2",
+      "name": "Alaknanda (Chamoli to Rudraprayag)",
+      "up": "chamoli",
+      "down": "rudraprayag",
+      "length_km": 68.0,
+      "slope": 0.008,
+      "width_m": 90,
+      "polyline": [
+        [
+          79.32,
+          30.41
+        ],
+        [
+          79.22,
+          30.26
+        ],
+        [
+          78.98,
+          30.28
+        ]
+      ]
+    },
+    {
+      "id": "alaknanda_3",
+      "name": "Alaknanda (Rudraprayag to Devprayag)",
+      "up": "rudraprayag",
+      "down": "devprayag",
+      "length_km": 62.0,
+      "slope": 0.005,
+      "width_m": 110,
+      "polyline": [
+        [
+          78.98,
+          30.28
+        ],
+        [
+          78.78,
+          30.22
+        ],
+        [
+          78.6,
+          30.15
+        ]
+      ]
+    },
+    {
+      "id": "ganga_1",
+      "name": "Ganga (Devprayag to Haridwar)",
+      "up": "devprayag",
+      "down": "haridwar",
+      "length_km": 90.0,
+      "slope": 0.0022,
+      "width_m": 180,
+      "polyline": [
+        [
+          78.6,
+          30.15
+        ],
+        [
+          78.27,
+          30.09
+        ],
+        [
+          78.16,
+          29.95
+        ]
+      ]
+    },
+    {
+      "id": "ganga_2",
+      "name": "Ganga Upper Plains (Haridwar to Narora)",
+      "up": "haridwar",
+      "down": "narora",
+      "length_km": 240.0,
+      "slope": 0.00045,
+      "width_m": 350,
+      "polyline": [
+        [
+          78.16,
+          29.95
+        ],
+        [
+          78.14,
+          29.37
+        ],
+        [
+          78.38,
+          28.2
+        ]
+      ]
+    },
+    {
+      "id": "ganga_3",
+      "name": "Ganga Middle Plains (Narora to Kanpur)",
+      "up": "narora",
+      "down": "kanpur",
+      "length_km": 310.0,
+      "slope": 0.00022,
+      "width_m": 480,
+      "polyline": [
+        [
+          78.38,
+          28.2
+        ],
+        [
+          79.92,
+          27.05
+        ],
+        [
+          80.33,
+          26.45
+        ]
+      ]
+    },
+    {
+      "id": "ganga_4",
+      "name": "Ganga Middle Plains (Kanpur to Prayagraj)",
+      "up": "kanpur",
+      "down": "prayagraj",
+      "length_km": 210.0,
+      "slope": 0.00016,
+      "width_m": 600,
+      "polyline": [
+        [
+          80.33,
+          26.45
+        ],
+        [
+          81.85,
+          25.44
+        ]
+      ]
+    },
+    {
+      "id": "ganga_5",
+      "name": "Ganga Lower Plains (Prayagraj to Varanasi)",
+      "up": "prayagraj",
+      "down": "varanasi",
+      "length_km": 150.0,
+      "slope": 0.00012,
+      "width_m": 850,
+      "polyline": [
+        [
+          81.85,
+          25.44
+        ],
+        [
+          82.57,
+          25.15
+        ],
+        [
+          82.97,
+          25.32
+        ]
+      ]
+    },
+    {
+      "id": "ganga_6",
+      "name": "Ganga Bihar Reach (Varanasi to Patna)",
+      "up": "varanasi",
+      "down": "patna",
+      "length_km": 280.0,
+      "slope": 9e-05,
+      "width_m": 1100,
+      "polyline": [
+        [
+          82.97,
+          25.32
+        ],
+        [
+          83.98,
+          25.56
+        ],
+        [
+          85.14,
+          25.59
+        ]
+      ]
+    },
+    {
+      "id": "ganga_7",
+      "name": "Ganga Eastern Reach (Patna to Farakka)",
+      "up": "patna",
+      "down": "farakka",
+      "length_km": 340.0,
+      "slope": 7e-05,
+      "width_m": 1400,
+      "polyline": [
+        [
+          85.14,
+          25.59
+        ],
+        [
+          86.47,
+          25.37
+        ],
+        [
+          86.98,
+          25.25
+        ],
+        [
+          87.64,
+          25.24
+        ],
+        [
+          87.93,
+          24.8
+        ]
+      ]
+    },
+    {
+      "id": "hooghly_1",
+      "name": "Bhagirathi-Hooghly (Farakka to Kolkata)",
+      "up": "farakka",
+      "down": "kolkata",
+      "length_km": 310.0,
+      "slope": 5e-05,
+      "width_m": 800,
+      "polyline": [
+        [
+          87.93,
+          24.8
+        ],
+        [
+          88.27,
+          24.18
+        ],
+        [
+          88.36,
+          22.57
+        ]
+      ]
+    },
+    {
+      "id": "hooghly_2",
+      "name": "Hooghly Delta (Kolkata to Ganga Sagar)",
+      "up": "kolkata",
+      "down": "gangasagar",
+      "length_km": 140.0,
+      "slope": 3e-05,
+      "width_m": 1600,
+      "polyline": [
+        [
+          88.36,
+          22.57
+        ],
+        [
+          88.06,
+          22.03
+        ],
+        [
+          88.08,
+          21.65
+        ]
+      ]
+    },
+    {
+      "id": "padma_outflow",
+      "name": "Padma River Outflow (Bangladesh Border)",
+      "up": "farakka",
+      "down": "padma_border_outflow",
+      "length_km": 120.0,
+      "slope": 5e-05,
+      "width_m": 1800,
+      "polyline": [
+        [
+          87.93,
+          24.8
+        ],
+        [
+          88.6,
+          24.4
+        ],
+        [
+          89.2,
+          24.0
+        ]
+      ]
+    }
+  ]
+}

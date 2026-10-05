@@ -1,0 +1,93 @@
+[
+  {
+    "id": "st_tehri",
+    "name": "Tehri Dam",
+    "type": "dam",
+    "river": "Bhagirathi",
+    "reach": "bhagirathi_2",
+    "lat": 30.378,
+    "lon": 78.48,
+    "height_m": 260.5,
+    "storage_Mm3": 3540.0,
+    "spillway_m3s": 15540,
+    "source": "THDC India Ltd & NRLD 2023"
+  },
+  {
+    "id": "st_srinagar",
+    "name": "Srinagar HEP Dam",
+    "type": "dam",
+    "river": "Alaknanda",
+    "reach": "alaknanda_3",
+    "lat": 30.225,
+    "lon": 78.788,
+    "height_m": 90.0,
+    "storage_Mm3": 65.0,
+    "spillway_m3s": 12500,
+    "source": "Alaknanda Hydro Power Company & NRLD 2023"
+  },
+  {
+    "id": "st_pashulok",
+    "name": "Pashulok Barrage (Rishikesh)",
+    "type": "barrage",
+    "river": "Ganga",
+    "reach": "ganga_1",
+    "lat": 30.075,
+    "lon": 78.29,
+    "height_m": 12.0,
+    "storage_Mm3": 12.0,
+    "spillway_m3s": 16000,
+    "source": "Uttarakhand Irrigation Dept"
+  },
+  {
+    "id": "st_bhimgoda",
+    "name": "Bhimgoda Barrage (Haridwar)",
+    "type": "barrage",
+    "river": "Ganga",
+    "reach": "ganga_1",
+    "lat": 29.955,
+    "lon": 78.175,
+    "height_m": 10.0,
+    "storage_Mm3": 8.0,
+    "spillway_m3s": 18000,
+    "source": "UP Irrigation Department"
+  },
+  {
+    "id": "st_narora",
+    "name": "Narora Atomic Barrage",
+    "type": "barrage",
+    "river": "Ganga",
+    "reach": "ganga_2",
+    "lat": 28.195,
+    "lon": 78.385,
+    "height_m": 9.5,
+    "storage_Mm3": 15.0,
+    "spillway_m3s": 14500,
+    "source": "CWC NRLD 2023"
+  },
+  {
+    "id": "st_kanpur",
+    "name": "Kanpur Ganga Barrage",
+    "type": "barrage",
+    "river": "Ganga",
+    "reach": "ganga_3",
+    "lat": 26.49,
+    "lon": 80.315,
+    "height_m": 11.0,
+    "storage_Mm3": 25.0,
+    "spillway_m3s": 22000,
+    "source": "UP Irrigation Department"
+  },
+  {
+    "id": "st_farakka",
+    "name": "Farakka Barrage",
+    "type": "barrage",
+    "river": "Ganga",
+    "reach": "ganga_7",
+    "lat": 24.802,
+    "lon": 87.931,
+    "height_m": 25.0,
+    "storage_Mm3": 110.0,
+    "spillway_m3s": 76500,
+    "source": "Farakka Barrage Project, MoJS India"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "tehri",
+    "name": "Tehri Dam break (hypothetical)",
+    "river": "Bhagirathi → Ganga",
+    "region": "Tehri Garhwal / Pauri Garhwal / Dehradun, Uttarakhand, India",
+    "event": "dam-break",
+    "hypothetical": true,
+    "year": null
+  },
+  {
+    "id": "rishiganga-2021",
+    "name": "Rishiganga–Dhauliganga–Alaknanda flood, 7 Feb 2021 (Chamoli)",
+    "river": "Rishiganga → Dhauliganga → Alaknanda",
+    "region": "Chamoli district, Uttarakhand, India",
+    "event": "lake-outburst",
+    "hypothetical": false,
+    "year": 2021
+  }
+]

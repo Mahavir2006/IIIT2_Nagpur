@@ -1,0 +1,40 @@
+{
+  "february_lean": {
+    "rishiganga_1": 25,
+    "bhagirathi_1": 40,
+    "bhagirathi_2": 55,
+    "bhagirathi_3": 70,
+    "alaknanda_1": 60,
+    "alaknanda_2": 90,
+    "alaknanda_3": 130,
+    "ganga_1": 220,
+    "ganga_2": 350,
+    "ganga_3": 480,
+    "ganga_4": 650,
+    "ganga_5": 850,
+    "ganga_6": 1200,
+    "ganga_7": 1600,
+    "hooghly_1": 450,
+    "hooghly_2": 550,
+    "padma_outflow": 1150
+  },
+  "august_monsoon": {
+    "rishiganga_1": 220,
+    "bhagirathi_1": 450,
+    "bhagirathi_2": 650,
+    "bhagirathi_3": 950,
+    "alaknanda_1": 800,
+    "alaknanda_2": 1400,
+    "alaknanda_3": 2200,
+    "ganga_1": 3800,
+    "ganga_2": 6500,
+    "ganga_3": 9200,
+    "ganga_4": 14500,
+    "ganga_5": 22000,
+    "ganga_6": 35000,
+    "ganga_7": 48000,
+    "hooghly_1": 12000,
+    "hooghly_2": 15000,
+    "padma_outflow": 33000
+  }
+}

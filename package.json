@@ -1,0 +1,16 @@
+{
+  "name": "dam_system_prototype",
+  "version": "0.3.0",
+  "private": true,
+  "description": "DAM SYSTEM, SIH 2026 PS26161: 3D natural dam breach prototype for the Rishiganga, Chamoli",
+  "scripts": {
+    "build": "node tools/build.js",
+    "build:data": "node tools/build_ganga_bundle.js",
+    "test": "node tests/verify.js",
+    "test:hindcast": "node tests/verify.js hindcast",
+    "test:basin": "node tests/basin_verify.js",
+    "serve": "python3 -m http.server 8080",
+    "dev": "node tools/devserver.js 8080"
+  },
+  "license": "UNLICENSED"
+}
