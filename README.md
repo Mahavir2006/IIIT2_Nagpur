@@ -4,6 +4,8 @@ An interactive 3D prototype of the DAM SYSTEM vision for PS26161 (NTRO, Dam Brea
 
 Live demo: https://claude.ai/artifact/K13ek2kTaKUWi2KzwKooUV
 
+**72-Hour Warning (CASCADE '26, Theme 2 · Problem 2).** `webapp/` now also contains a cascading urban crisis forecaster at `/cascade`. It predicts how a flood or other disruption spreads through drainage, roads, power, communications, ambulances and hospitals 1–72 h ahead, learns the dependencies between those systems from the data, and recommends preventive actions. See [`webapp/docs/CASCADE.md`](webapp/docs/CASCADE.md).
+
 ## Quick start
 
 No install is needed to run it.

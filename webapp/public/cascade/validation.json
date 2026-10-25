@@ -1,0 +1,1302 @@
+{
+ "generated": "2026-10-25T22:33:10.847Z",
+ "dev": {
+  "cityId": "haridwar",
+  "scenarios": 6,
+  "policy": {
+   "critical6": 0.5,
+   "critical24": 0.45,
+   "high6": 0.9,
+   "high72": 0.35
+  },
+  "leadTimeH": {
+   "median": 25,
+   "p10": 2.5,
+   "p90": 46.5,
+   "values": [
+    2.25,
+    2.25,
+    2.5,
+    2.5,
+    19.5,
+    20,
+    20,
+    20.25,
+    20.75,
+    21,
+    23.25,
+    24.25,
+    24.5,
+    24.5,
+    25,
+    25,
+    25.5,
+    25.5,
+    25.75,
+    27.5,
+    28.5,
+    45.5,
+    45.75,
+    46.25,
+    46.25,
+    46.5,
+    46.75,
+    47,
+    47.25
+   ]
+  },
+  "pod": 0.9354838709677419,
+  "far": 0.2857142857142857,
+  "falseAlarmsPer100ZoneDays": 7.413127413127413,
+  "brier": {
+   "1": 0.013310599919745331,
+   "3": 0.016367523353975136,
+   "6": 0.023498703168266702,
+   "12": 0.03349292182090844,
+   "24": 0.05760600846928434,
+   "48": 0.10550979879009598,
+   "72": 0.1321621588121001
+  },
+  "ece": {
+   "1": 0.008430327113617648,
+   "3": 0.005660647069182365,
+   "6": 0.011787136357772005,
+   "12": 0.02270119521444882,
+   "24": 0.03437181297273643,
+   "48": 0.06620642943115637,
+   "72": 0.08896996403307704
+  },
+  "reliability": {
+   "1": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.004922894352047093,
+     "observedFreq": 0.006369426751592357,
+     "n": 2041
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.13441309256425013,
+     "observedFreq": 0.23809523809523808,
+     "n": 21
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.27489090665627647,
+     "observedFreq": 0.8,
+     "n": 5
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3405503064144315,
+     "observedFreq": 0.42857142857142855,
+     "n": 7
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.40531511356162686,
+     "observedFreq": 0,
+     "n": 1
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5265103598794514,
+     "observedFreq": 0.25,
+     "n": 8
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6484286350973786,
+     "observedFreq": 0.9090909090909091,
+     "n": 11
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7422565476622469,
+     "observedFreq": 1,
+     "n": 4
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8469740828384682,
+     "observedFreq": 0.5,
+     "n": 2
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9938085096403311,
+     "observedFreq": 0.95,
+     "n": 60
+    }
+   ],
+   "3": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.0073170818588530985,
+     "observedFreq": 0.007560483870967742,
+     "n": 1984
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.13639592944549442,
+     "observedFreq": 0.12727272727272726,
+     "n": 55
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.24189203314486984,
+     "observedFreq": 1,
+     "n": 4
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.33678353037318737,
+     "observedFreq": 0.2,
+     "n": 10
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.45463133557650687,
+     "observedFreq": 0.75,
+     "n": 4
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5597405533018742,
+     "observedFreq": 0.625,
+     "n": 8
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6390464307531674,
+     "observedFreq": 0.6363636363636364,
+     "n": 11
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7406997901074818,
+     "observedFreq": 1,
+     "n": 8
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8436376203623462,
+     "observedFreq": 0.8888888888888888,
+     "n": 9
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9944376227059853,
+     "observedFreq": 0.9552238805970149,
+     "n": 67
+    }
+   ],
+   "6": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.00794754859937837,
+     "observedFreq": 0.0027808676307007787,
+     "n": 1798
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.13234889712600856,
+     "observedFreq": 0.1485148514851485,
+     "n": 101
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.23244291026743802,
+     "observedFreq": 0.36363636363636365,
+     "n": 33
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3422629011902877,
+     "observedFreq": 0.2,
+     "n": 15
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.46401772053830825,
+     "observedFreq": 0.47368421052631576,
+     "n": 19
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.538930684967788,
+     "observedFreq": 0.5357142857142857,
+     "n": 28
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.644472885879064,
+     "observedFreq": 0.65,
+     "n": 20
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7313912418051989,
+     "observedFreq": 1,
+     "n": 8
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8436676923142925,
+     "observedFreq": 1,
+     "n": 8
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9940487400286273,
+     "observedFreq": 0.9428571428571428,
+     "n": 70
+    }
+   ],
+   "12": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.009359571228137043,
+     "observedFreq": 0.005092297899427116,
+     "n": 1571
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.13920085070487967,
+     "observedFreq": 0.06611570247933884,
+     "n": 121
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.2397372442143386,
+     "observedFreq": 0.3829787234042553,
+     "n": 47
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3509652568839999,
+     "observedFreq": 0.39473684210526316,
+     "n": 38
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4448456937664966,
+     "observedFreq": 0.5161290322580645,
+     "n": 31
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5672315048212504,
+     "observedFreq": 0.35,
+     "n": 20
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6522467580348483,
+     "observedFreq": 0.8125,
+     "n": 64
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7322138461597559,
+     "observedFreq": 1,
+     "n": 9
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8459643828992838,
+     "observedFreq": 0.875,
+     "n": 8
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.993697549757459,
+     "observedFreq": 0.971830985915493,
+     "n": 71
+    }
+   ],
+   "24": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.013746482263314973,
+     "observedFreq": 0.012477718360071301,
+     "n": 1122
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.15255186930184828,
+     "observedFreq": 0.06532663316582915,
+     "n": 199
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.25290260376359586,
+     "observedFreq": 0.25925925925925924,
+     "n": 81
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3625910020685255,
+     "observedFreq": 0.5272727272727272,
+     "n": 55
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.441434430741871,
+     "observedFreq": 0.42857142857142855,
+     "n": 35
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5317864798247135,
+     "observedFreq": 0.5531914893617021,
+     "n": 47
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6481832186137345,
+     "observedFreq": 0.8761061946902655,
+     "n": 113
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7322138461597559,
+     "observedFreq": 1,
+     "n": 9
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8459999678850473,
+     "observedFreq": 0.875,
+     "n": 8
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.99436032448367,
+     "observedFreq": 0.971830985915493,
+     "n": 71
+    }
+   ],
+   "48": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.016721289951122594,
+     "observedFreq": 0.03065134099616858,
+     "n": 522
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.1590623017843432,
+     "observedFreq": 0.10204081632653061,
+     "n": 196
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.23031001272046353,
+     "observedFreq": 0.27450980392156865,
+     "n": 153
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3593662294802733,
+     "observedFreq": 0.5,
+     "n": 36
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4619761077905745,
+     "observedFreq": 0.5416666666666666,
+     "n": 72
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5337374745680151,
+     "observedFreq": 0.7160493827160493,
+     "n": 81
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6482109284228504,
+     "observedFreq": 0.9017857142857143,
+     "n": 112
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7322138461597559,
+     "observedFreq": 1,
+     "n": 9
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8459999678850473,
+     "observedFreq": 0.875,
+     "n": 8
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.99436032448367,
+     "observedFreq": 0.971830985915493,
+     "n": 71
+    }
+   ],
+   "72": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.009562511694117003,
+     "observedFreq": 0.025906735751295335,
+     "n": 193
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.15267321324193311,
+     "observedFreq": 0.09090909090909091,
+     "n": 121
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.23585162807967994,
+     "observedFreq": 0.20388349514563106,
+     "n": 103
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3542492189706273,
+     "observedFreq": 0.45454545454545453,
+     "n": 66
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4565288716159347,
+     "observedFreq": 0.5066666666666667,
+     "n": 75
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5322047935195842,
+     "observedFreq": 0.7105263157894737,
+     "n": 76
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6471092398863727,
+     "observedFreq": 0.9230769230769231,
+     "n": 104
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7302867846119123,
+     "observedFreq": 1,
+     "n": 5
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8379350851665018,
+     "observedFreq": 1,
+     "n": 4
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9953385924526353,
+     "observedFreq": 0.9696969696969697,
+     "n": 33
+    }
+   ]
+  },
+  "ttcMaeH": 7.615131578947368,
+  "graph": {
+   "precision": 0.65,
+   "recall": 0.5652173913043478
+  },
+  "baseline": {
+   "name": "Threshold alarm (warn when observed HIGH RISK now)",
+   "pod": 0.5161290322580645,
+   "far": 0.19444444444444445,
+   "leadTimeMedianH": 21.25
+  },
+  "isolationViolations": 0,
+  "perScenario": [
+   {
+    "id": "hw-cloudburst",
+    "label": "Monsoon cloudburst + upstream release",
+    "trueEvents": 18,
+    "caught": 18,
+    "leadMedianH": 28.5,
+    "falseAlarms": 3
+   },
+   {
+    "id": "hw-compound",
+    "label": "Compound: storm + substation failure (hostile feed)",
+    "trueEvents": 7,
+    "caught": 7,
+    "leadMedianH": 20.25,
+    "falseAlarms": 5
+   },
+   {
+    "id": "hw-nearmiss",
+    "label": "Near miss: heavy shower that drains away",
+    "trueEvents": 0,
+    "caught": 0,
+    "leadMedianH": null,
+    "falseAlarms": 0
+   },
+   {
+    "id": "haridwar-compound-9100",
+    "label": "Haridwar–Rishikesh: random compound #9100",
+    "trueEvents": 4,
+    "caught": 4,
+    "leadMedianH": 2.5,
+    "falseAlarms": 4
+   },
+   {
+    "id": "haridwar-moderate-9101",
+    "label": "Haridwar–Rishikesh: random moderate #9101",
+    "trueEvents": 0,
+    "caught": 0,
+    "leadMedianH": null,
+    "falseAlarms": 0
+   },
+   {
+    "id": "haridwar-moderate-9102",
+    "label": "Haridwar–Rishikesh: random moderate #9102",
+    "trueEvents": 2,
+    "caught": 0,
+    "leadMedianH": null,
+    "falseAlarms": 0
+   }
+  ],
+  "robustness": [
+   {
+    "preset": "clean",
+    "pod": 0.9032258064516129,
+    "far": 0.2631578947368421,
+    "brier24": 0.05508286172446428,
+    "meanConfidence": 0.7537722465835245
+   },
+   {
+    "preset": "hostile",
+    "pod": 0.9354838709677419,
+    "far": 0.2727272727272727,
+    "brier24": 0.05973801676618447,
+    "meanConfidence": 0.7126299700685232
+   }
+  ],
+  "counterfactual": {
+   "scenarioId": "hw-cloudburst",
+   "t": 26,
+   "actions": [
+    "deploy_pumps @ hw-jwalapur",
+    "deploy_pumps @ hw-rishikesh",
+    "deploy_pumps @ hw-harkipauri",
+    "clear_outfall @ hw-rishikesh"
+   ],
+   "estimatedDelta": -3.2636904761906127,
+   "actualDelta": -6.605113636363724,
+   "baselineActual": 20.342532467532497
+  }
+ },
+ "heldOut": {
+  "cityId": "nagpur",
+  "scenarios": 3,
+  "policy": {
+   "critical6": 0.5,
+   "critical24": 0.45,
+   "high6": 0.9,
+   "high72": 0.35
+  },
+  "leadTimeH": {
+   "median": 25.25,
+   "p10": 1.25,
+   "p90": 26.75,
+   "values": [
+    1.25,
+    1.25,
+    1.5,
+    7.5,
+    9.25,
+    25,
+    25.25,
+    25.5,
+    25.5,
+    25.75,
+    26.75,
+    27.5
+   ]
+  },
+  "pod": 0.8,
+  "far": 0.34615384615384615,
+  "falseAlarmsPer100ZoneDays": 11.428571428571429,
+  "brier": {
+   "1": 0.006999434289009217,
+   "3": 0.015253211494907363,
+   "6": 0.024558230946943403,
+   "12": 0.041768193780030646,
+   "24": 0.08035704246641359,
+   "48": 0.1953232061013363,
+   "72": 0.2558696077016625
+  },
+  "ece": {
+   "1": 0.0053290535659944425,
+   "3": 0.007788874200868896,
+   "6": 0.01683450076285241,
+   "12": 0.021327684181569845,
+   "24": 0.026991420470992535,
+   "48": 0.08718897250295636,
+   "72": 0.15742197466802438
+  },
+  "reliability": {
+   "1": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.004246346548121103,
+     "observedFreq": 0.005203816131830009,
+     "n": 1153
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.10650592829667609,
+     "observedFreq": 0,
+     "n": 3
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.25829394958585905,
+     "observedFreq": 0,
+     "n": 1
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": null,
+     "observedFreq": null,
+     "n": 0
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.48606555958512726,
+     "observedFreq": 1,
+     "n": 1
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": null,
+     "observedFreq": null,
+     "n": 0
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6536330855999778,
+     "observedFreq": 1,
+     "n": 6
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7650259582591616,
+     "observedFreq": 1,
+     "n": 4
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8550352809068895,
+     "observedFreq": 1,
+     "n": 1
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9985339294230353,
+     "observedFreq": 0.9473684210526315,
+     "n": 19
+    }
+   ],
+   "3": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.00828896189852286,
+     "observedFreq": 0.01064773735581189,
+     "n": 1127
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.16187131224365917,
+     "observedFreq": 0.05,
+     "n": 20
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.26908298477459797,
+     "observedFreq": 0,
+     "n": 1
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.34685281806606455,
+     "observedFreq": 1,
+     "n": 2
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4846670565580716,
+     "observedFreq": 0.5,
+     "n": 2
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5435195694517456,
+     "observedFreq": 0.5,
+     "n": 4
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6694737622267365,
+     "observedFreq": 0.6,
+     "n": 5
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7586427285205092,
+     "observedFreq": 1,
+     "n": 5
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8744258401837393,
+     "observedFreq": 1,
+     "n": 1
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9951221677958867,
+     "observedFreq": 0.9523809523809523,
+     "n": 21
+    }
+   ],
+   "6": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.009043473917973222,
+     "observedFreq": 0.011753183153770812,
+     "n": 1021
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.14185436216609268,
+     "observedFreq": 0.06557377049180328,
+     "n": 61
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.2596360693321935,
+     "observedFreq": 0.75,
+     "n": 4
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.37879127989717915,
+     "observedFreq": 0,
+     "n": 4
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4418141698409183,
+     "observedFreq": 0.21052631578947367,
+     "n": 19
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.544286014551741,
+     "observedFreq": 0.6923076923076923,
+     "n": 13
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6611810917869516,
+     "observedFreq": 0.8,
+     "n": 5
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7504061574406146,
+     "observedFreq": 0.8333333333333334,
+     "n": 6
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8744258401837393,
+     "observedFreq": 1,
+     "n": 1
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9957864534719507,
+     "observedFreq": 0.9523809523809523,
+     "n": 21
+    }
+   ],
+   "12": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.01104632978257584,
+     "observedFreq": 0.013921113689095127,
+     "n": 862
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.15228287194764087,
+     "observedFreq": 0.04878048780487805,
+     "n": 82
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.2558080253868915,
+     "observedFreq": 0.34146341463414637,
+     "n": 41
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3342449844680649,
+     "observedFreq": 0.3333333333333333,
+     "n": 12
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4684286791059225,
+     "observedFreq": 0.16666666666666666,
+     "n": 18
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5634739694669794,
+     "observedFreq": 0.5333333333333333,
+     "n": 15
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.634862390064357,
+     "observedFreq": 0.6774193548387096,
+     "n": 31
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7504061574406146,
+     "observedFreq": 0.8333333333333334,
+     "n": 6
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8744258401837393,
+     "observedFreq": 1,
+     "n": 1
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9957880564171597,
+     "observedFreq": 0.9523809523809523,
+     "n": 21
+    }
+   ],
+   "24": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.017194827500320743,
+     "observedFreq": 0.020442930153321975,
+     "n": 587
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.16390966401585405,
+     "observedFreq": 0.11678832116788321,
+     "n": 137
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.25586205971196846,
+     "observedFreq": 0.37142857142857144,
+     "n": 70
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.33750724045662484,
+     "observedFreq": 0.3684210526315789,
+     "n": 19
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4617908891019402,
+     "observedFreq": 0.3076923076923077,
+     "n": 26
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5579788025758311,
+     "observedFreq": 0.5833333333333334,
+     "n": 48
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.642065620980326,
+     "observedFreq": 0.6904761904761905,
+     "n": 42
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7504061574406146,
+     "observedFreq": 0.8333333333333334,
+     "n": 6
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8744258401837393,
+     "observedFreq": 1,
+     "n": 1
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9957880564171597,
+     "observedFreq": 0.9523809523809523,
+     "n": 21
+    }
+   ],
+   "48": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.009781872317112696,
+     "observedFreq": 0.1348314606741573,
+     "n": 178
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.15257645322780714,
+     "observedFreq": 0.21428571428571427,
+     "n": 182
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.254349159487233,
+     "observedFreq": 0.42045454545454547,
+     "n": 88
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.33099225350336403,
+     "observedFreq": 0.5,
+     "n": 26
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4574685444259525,
+     "observedFreq": 0.5,
+     "n": 20
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5476918726429756,
+     "observedFreq": 0.5785714285714286,
+     "n": 140
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.642065620980326,
+     "observedFreq": 0.6904761904761905,
+     "n": 42
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": 0.7500981109386872,
+     "observedFreq": 0.5,
+     "n": 2
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": 0.8744258401837393,
+     "observedFreq": 1,
+     "n": 1
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": 0.9937293508260455,
+     "observedFreq": 1,
+     "n": 14
+    }
+   ],
+   "72": [
+    {
+     "lo": 0,
+     "hi": 0.1,
+     "meanForecast": 0.010715198263303579,
+     "observedFreq": 0.25862068965517243,
+     "n": 58
+    },
+    {
+     "lo": 0.1,
+     "hi": 0.2,
+     "meanForecast": 0.1563787338846949,
+     "observedFreq": 0.30708661417322836,
+     "n": 127
+    },
+    {
+     "lo": 0.2,
+     "hi": 0.3,
+     "meanForecast": 0.24765450448556842,
+     "observedFreq": 0.49295774647887325,
+     "n": 71
+    },
+    {
+     "lo": 0.3,
+     "hi": 0.4,
+     "meanForecast": 0.3278433767626312,
+     "observedFreq": 0.4090909090909091,
+     "n": 22
+    },
+    {
+     "lo": 0.4,
+     "hi": 0.5,
+     "meanForecast": 0.4623880198818265,
+     "observedFreq": 0.6571428571428571,
+     "n": 35
+    },
+    {
+     "lo": 0.5,
+     "hi": 0.6,
+     "meanForecast": 0.5436673920690502,
+     "observedFreq": 0.6276595744680851,
+     "n": 94
+    },
+    {
+     "lo": 0.6,
+     "hi": 0.7,
+     "meanForecast": 0.6409067042190096,
+     "observedFreq": 0.6363636363636364,
+     "n": 22
+    },
+    {
+     "lo": 0.7,
+     "hi": 0.8,
+     "meanForecast": null,
+     "observedFreq": null,
+     "n": 0
+    },
+    {
+     "lo": 0.8,
+     "hi": 0.9,
+     "meanForecast": null,
+     "observedFreq": null,
+     "n": 0
+    },
+    {
+     "lo": 0.9,
+     "hi": 1,
+     "meanForecast": null,
+     "observedFreq": null,
+     "n": 0
+    }
+   ]
+  },
+  "ttcMaeH": 1.8103932584269662,
+  "graph": {
+   "precision": 0.6,
+   "recall": 0.5217391304347826
+  },
+  "baseline": {
+   "name": "Threshold alarm (warn when observed HIGH RISK now)",
+   "pod": 0.13333333333333333,
+   "far": 0.2916666666666667,
+   "leadTimeMedianH": 2.25
+  },
+  "isolationViolations": 0,
+  "perScenario": [
+   {
+    "id": "ng-ambazari",
+    "label": "Nagpur, Ambazari overflow (held-out city)",
+    "trueEvents": 7,
+    "caught": 5,
+    "leadMedianH": 1.5,
+    "falseAlarms": 2
+   },
+   {
+    "id": "nagpur-moderate-9300",
+    "label": "Nagpur: random moderate #9300",
+    "trueEvents": 1,
+    "caught": 0,
+    "leadMedianH": null,
+    "falseAlarms": 1
+   },
+   {
+    "id": "nagpur-severe-9301",
+    "label": "Nagpur: random severe #9301",
+    "trueEvents": 7,
+    "caught": 7,
+    "leadMedianH": 25.5,
+    "falseAlarms": 6
+   }
+  ]
+ },
+ "graph": {
+  "precision": 0.6,
+  "recall": 0.5217391304347826,
+  "tp": [
+   "rain24>river:driver",
+   "rain>drain:local",
+   "river>drain:local",
+   "drain>road:local",
+   "road>road:neighbour",
+   "road>transit:local",
+   "power>transit:local",
+   "drain>power:local",
+   "power>power:neighbour",
+   "power>telecom:local",
+   "drain>calls:local",
+   "road>ems:local"
+  ],
+  "fp": [
+   "rain>road:local",
+   "drain>transit:local",
+   "transit>transit:neighbour",
+   "drain>telecom:local",
+   "transit>telecom:local",
+   "drain>ems:local",
+   "transit>ems:local",
+   "ems>ems:neighbour"
+  ],
+  "fn": [
+   "transit>road:local",
+   "calls>telecom:local",
+   "road>calls:local",
+   "power>calls:local",
+   "calls>ems:local",
+   "hospital>ems:local",
+   "calls>hospital:local",
+   "ems>hospital:local",
+   "power>hospital:local",
+   "hospital>hospital:neighbour",
+   "upstream>river:driver"
+  ]
+ }
+}

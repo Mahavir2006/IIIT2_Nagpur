@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { BookOpen, ChevronDown, Download, Loader2, Play, X } from 'lucide-react';
+import { BookOpen, ChevronDown, Download, Loader2, Network, Play, X } from 'lucide-react';
 import { useScenario } from '@/store/scenario';
 import { useUi } from '@/store/ui';
 import { useSim } from '@/store/sim';
@@ -182,6 +182,10 @@ export default function TopBar() {
         >
           <Download size={14} /> Export
         </button>
+
+        <a className="btn" href="/cascade" data-tip="72-Hour Warning: forecast how a flood cascades through drainage, roads, power, communications, ambulances and hospitals across a city, up to 72 h ahead.">
+          <Network size={14} /> 72-h cascade
+        </a>
 
         <button
           type="button"
