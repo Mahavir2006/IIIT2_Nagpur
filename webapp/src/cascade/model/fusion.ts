@@ -195,7 +195,9 @@ export class Fusion implements StateAccess {
       const w = primary ? this.sW[i] : this.pW[i];
       if (w > 0) { W += w * 0.5; X += (primary ? this.sX[i] : this.pX[i]) * 0.5; }
     }
-    const pred = this.learner && k !== S.rain ? this.learner.impliedByParents(z, k, Math.round(t), this) : null;
+    // rain and river are driven from outside the city (weather, upstream releases): the learned
+    // model cannot tell what their readings should be, so it never vouches for or against them
+    const pred = this.learner && k !== S.rain && k !== S.river ? this.learner.impliedByParents(z, k, Math.round(t), this) : null;
     if (pred) { const w = 1 / (pred.sd * pred.sd + 0.004); W += w; X += w * pred.mean; }
     if (W < 20) return null;
     return { mean: X / W, sd: Math.sqrt(1 / W) };

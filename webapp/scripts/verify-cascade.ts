@@ -117,6 +117,10 @@ console.log('\nM2–M5. Fusion, dependency discovery, cascade forecast, planner,
   const peak = run.snaps.find((sn) => sn.t >= stuck.tEnd - 1)!;
   const shPeak = peak.sources.find((x) => x.sourceId === stuck.sourceId)!;
   check('frozen sensor detected', shPeak.status === 'suspect' || shPeak.flags.some((f) => f.includes('frozen')) || sh.flags.some((f) => f.includes('frozen')), `${stuck.sourceId}: ${shPeak.status}, trust ${shPeak.trust.toFixed(2)}, flags ${shPeak.flags.join('; ') || 'none'}`);
+  // healthy river gauges must not be distrusted when an upstream release makes the river rise
+  const tampered = new Set(run.bundle.ledger.filter((l) => l.sourceId).map((l) => l.sourceId!));
+  const falseRiver = new Set(run.snaps.flatMap((sn) => sn.sources.filter((x) => x.kind === 'river_gauge' && !tampered.has(x.sourceId) && x.status === 'suspect').map((x) => x.sourceId)));
+  check('healthy river gauges stay trusted through the release', falseRiver.size === 0, falseRiver.size ? `wrongly suspect: ${[...falseRiver].join(', ')}` : 'no untampered river gauge flagged suspect at any snapshot');
   check('chains explain themselves', last.chains.length === 0 || run.snaps.some((sn) => sn.chains.some((c) => c.stages.some((st) => st.link && st.link.evidence.length > 0))), 'some stage carries a learned link with evidence');
   check('zone explanations carry evidence', run.snaps.some((sn) => sn.zones.some((z) => z.drivers && z.drivers.contributions.some((c) => c.evidence.length > 0))), 'drivers cite sensor readings with trust');
 
