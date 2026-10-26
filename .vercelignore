@@ -1,0 +1,10 @@
+node_modules
+.git
+.vercel
+ml/data
+dist
+dist-ssr
+eval/__pycache__
+scripts/.parity-input.json
+.wrangler
+*.log

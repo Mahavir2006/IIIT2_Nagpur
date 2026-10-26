@@ -1,0 +1,20 @@
+{
+  "slug": "vadnerbhairav-chandwad",
+  "source": "Maharashtra land records (BhuNaksha) plot outlines, via BhuMe bundle",
+  "crs": "EPSG:4326",
+  "importedAt": "2026-09-27T10:48:17.084583+00:00",
+  "totalFeatures": 2457,
+  "validPolygons": 2457,
+  "invalidPolygons": 0,
+  "ringsRepairedByClosure": 0,
+  "interiorRingsKept": 6,
+  "duplicateIds": 0,
+  "missingParcelIdsGenerated": 0,
+  "missingSurveyNumbers": 11,
+  "admin": {
+    "village": "Vadnerbhairav",
+    "taluka": "Chandwad",
+    "district": "Nashik",
+    "state": "Maharashtra"
+  }
+}

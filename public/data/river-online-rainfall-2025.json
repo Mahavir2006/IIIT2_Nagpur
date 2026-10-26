@@ -1,0 +1,3267 @@
+{
+  "reportId": "river-online-rainfall-2025-marine-lines-v1",
+  "generatedAt": "2026-10-26T03:51:49.088161+00:00",
+  "modelStatus": "measured_historical_reanalysis_holdout",
+  "dataScope": {
+    "geography": "Marine Lines, Mumbai, Maharashtra",
+    "dataClass": "historical_reanalysis",
+    "provider": "Open-Meteo Historical Weather API, ERA5",
+    "target": "hourly-gridpoint rainfall accumulation, not flood/road impact",
+    "testYear": 2025,
+    "featureRows": 26160,
+    "rejectedRows": {},
+    "featureCsvSha256": "8c07dbfbc0b9c39a3b0b6533cc959ba27b198a99fe9922ecd9de754718fabe0f",
+    "thresholdForHeavyRainLabelMmPer24h": 64.5,
+    "thresholdSource": "Fixed rainfall-amount benchmark threshold for this experiment; it is not an operational flood warning threshold."
+  },
+  "validation": {
+    "method": "chronological prequential replay, test before learn, supervised labels released only at event time + horizon",
+    "testStart": "2024-12-31T18:30:00+00:00",
+    "testEndExclusive": "2025-12-31T18:30:00+00:00",
+    "decisionThresholds": {
+      "rawProbability": 0.05,
+      "calibratedProbability": 0.02
+    },
+    "decisionThresholdSelection": "maximum F2 on the final 365-day pre-test prequential validation stream, independently for raw and calibrated scores; thresholds frozen for test period",
+    "validationSamples": 8737,
+    "validationPositiveEvents": 110,
+    "futureLeakageGuard": "NowClock rejects labels whose horizon has not matured at replay time.",
+    "qualityPolicy": "Reject malformed, non-monotonic, duplicate, incomplete, non-finite and negative-target rows; do not trim physically plausible high rainfall as false positives."
+  },
+  "models": {
+    "regression": {
+      "library": "River",
+      "algorithm": "online standardized SGD linear regression",
+      "pythonVersion": "3.13.7",
+      "resultsByHorizon": [
+        {
+          "horizonHours": 1,
+          "n": 8688,
+          "maeMm": 0.10023263007508498,
+          "rmseMm": 0.31496299672590566,
+          "baselines": {
+            "last-hour-persistence": {
+              "n": 8688,
+              "maeMm": 0.09693830570902395,
+              "rmseMm": 0.3227414795391217
+            },
+            "weekly-seasonal-naive": {
+              "n": 8688,
+              "maeMm": 0.3475253222836096,
+              "rmseMm": 0.9984201378372946
+            }
+          },
+          "conformalInterval": {
+            "nominalCoverage": 0.9,
+            "n": 8688,
+            "empiricalCoverage": 0.8242403314917127,
+            "meanWidthMm": 0.3020859495712117,
+            "method": "rolling absolute-error split-conformal interval; empirical holdout coverage only"
+          }
+        },
+        {
+          "horizonHours": 6,
+          "n": 8688,
+          "maeMm": 0.8397897433926607,
+          "rmseMm": 2.6891414792103765,
+          "baselines": {
+            "last-hour-persistence": {
+              "n": 8688,
+              "maeMm": 0.8870626151012891,
+              "rmseMm": 2.8586030535994116
+            },
+            "weekly-seasonal-naive": {
+              "n": 8688,
+              "maeMm": 1.9948434622467772,
+              "rmseMm": 5.395337023968933
+            }
+          },
+          "conformalInterval": {
+            "nominalCoverage": 0.9,
+            "n": 8688,
+            "empiricalCoverage": 0.8233195211786372,
+            "meanWidthMm": 2.442248896804013,
+            "method": "rolling absolute-error split-conformal interval; empirical holdout coverage only"
+          }
+        },
+        {
+          "horizonHours": 24,
+          "n": 8688,
+          "maeMm": 4.205739118359761,
+          "rmseMm": 10.626121362683552,
+          "baselines": {
+            "last-hour-persistence": {
+              "n": 8688,
+              "maeMm": 4.536901473296501,
+              "rmseMm": 14.486023539696237
+            },
+            "weekly-seasonal-naive": {
+              "n": 8688,
+              "maeMm": 7.386233885819521,
+              "rmseMm": 17.1268719991462
+            }
+          },
+          "conformalInterval": {
+            "nominalCoverage": 0.9,
+            "n": 8688,
+            "empiricalCoverage": 0.8236648250460405,
+            "meanWidthMm": 13.088914417479252,
+            "method": "rolling absolute-error split-conformal interval; empirical holdout coverage only"
+          }
+        },
+        {
+          "horizonHours": 72,
+          "n": 8688,
+          "maeMm": 18.035693921896716,
+          "rmseMm": 34.59854198148838,
+          "baselines": {
+            "last-hour-persistence": {
+              "n": 8688,
+              "maeMm": 15.8298802946593,
+              "rmseMm": 46.99403835471024
+            },
+            "weekly-seasonal-naive": {
+              "n": 8688,
+              "maeMm": 18.50621546961326,
+              "rmseMm": 37.2931226039645
+            }
+          },
+          "conformalInterval": {
+            "nominalCoverage": 0.9,
+            "n": 8688,
+            "empiricalCoverage": 0.820902394106814,
+            "meanWidthMm": 61.635215900987006,
+            "method": "rolling absolute-error split-conformal interval; empirical holdout coverage only"
+          }
+        }
+      ]
+    },
+    "heavyRainEvent": {
+      "library": "River",
+      "algorithm": "online standardized SGD logistic regression",
+      "pythonVersion": "3.13.7",
+      "positiveClass": "next 24-hour ERA5 rainfall >= 64.5 mm",
+      "rawProbabilityMetrics": {
+        "threshold": 0.05,
+        "positiveClass": "next 24-hour ERA5 rainfall >= 64.5 mm",
+        "n": 8688,
+        "truePositives": 16,
+        "falsePositives": 119,
+        "trueNegatives": 8477,
+        "falseNegatives": 76,
+        "accuracy": 0.9775552486187845,
+        "precision": 0.11851851851851852,
+        "recall": 0.17391304347826086,
+        "f1": 0.14096916299559473,
+        "falsePositiveRate": 0.013843648208469055,
+        "falseNegativeRate": 0.8260869565217391,
+        "brierScore": 0.010572155040979902,
+        "expectedCalibrationError": 0.003117383076208696,
+        "calibrationMethod": "online equal-width probability bins with Beta(1,1) smoothing",
+        "reliabilityBins": [
+          {
+            "binStart": 0.0,
+            "binEnd": 0.1,
+            "count": 8608,
+            "meanPredictedProbability": 0.011262210234300936,
+            "observedEventRate": 0.009642193308550186
+          },
+          {
+            "binStart": 0.1,
+            "binEnd": 0.2,
+            "count": 38,
+            "meanPredictedProbability": 0.153395096701031,
+            "observedEventRate": 0.07894736842105263
+          },
+          {
+            "binStart": 0.2,
+            "binEnd": 0.3,
+            "count": 29,
+            "meanPredictedProbability": 0.24155886844261312,
+            "observedEventRate": 0.10344827586206896
+          },
+          {
+            "binStart": 0.3,
+            "binEnd": 0.4,
+            "count": 4,
+            "meanPredictedProbability": 0.34328068971956127,
+            "observedEventRate": 0.0
+          },
+          {
+            "binStart": 0.5,
+            "binEnd": 0.6,
+            "count": 1,
+            "meanPredictedProbability": 0.538961158269253,
+            "observedEventRate": 0.0
+          },
+          {
+            "binStart": 0.8,
+            "binEnd": 0.9,
+            "count": 2,
+            "meanPredictedProbability": 0.8398255904265017,
+            "observedEventRate": 0.5
+          },
+          {
+            "binStart": 0.9,
+            "binEnd": 1.0,
+            "count": 6,
+            "meanPredictedProbability": 0.9521270852938719,
+            "observedEventRate": 0.3333333333333333
+          }
+        ],
+        "falseNegativeExamples": [
+          {
+            "origin": "2025-06-17T15:30:00+00:00",
+            "actualNext24hMm": 66.8,
+            "predictedProbability": 0.01368
+          },
+          {
+            "origin": "2025-06-17T16:30:00+00:00",
+            "actualNext24hMm": 72.6,
+            "predictedProbability": 0.01417
+          },
+          {
+            "origin": "2025-06-17T17:30:00+00:00",
+            "actualNext24hMm": 78.4,
+            "predictedProbability": 0.01429
+          },
+          {
+            "origin": "2025-06-17T18:30:00+00:00",
+            "actualNext24hMm": 89.2,
+            "predictedProbability": 0.01964
+          },
+          {
+            "origin": "2025-06-17T19:30:00+00:00",
+            "actualNext24hMm": 101.3,
+            "predictedProbability": 0.01917
+          },
+          {
+            "origin": "2025-06-17T20:30:00+00:00",
+            "actualNext24hMm": 114.4,
+            "predictedProbability": 0.01859
+          },
+          {
+            "origin": "2025-06-17T21:30:00+00:00",
+            "actualNext24hMm": 126.5,
+            "predictedProbability": 0.03005
+          },
+          {
+            "origin": "2025-06-17T22:30:00+00:00",
+            "actualNext24hMm": 136.5,
+            "predictedProbability": 0.02605
+          },
+          {
+            "origin": "2025-06-17T23:30:00+00:00",
+            "actualNext24hMm": 145.8,
+            "predictedProbability": 0.02225
+          },
+          {
+            "origin": "2025-06-18T00:30:00+00:00",
+            "actualNext24hMm": 153.6,
+            "predictedProbability": 0.0259
+          },
+          {
+            "origin": "2025-06-18T01:30:00+00:00",
+            "actualNext24hMm": 157.7,
+            "predictedProbability": 0.03056
+          },
+          {
+            "origin": "2025-06-18T02:30:00+00:00",
+            "actualNext24hMm": 156.8,
+            "predictedProbability": 0.04184
+          },
+          {
+            "origin": "2025-06-18T03:30:00+00:00",
+            "actualNext24hMm": 154.4,
+            "predictedProbability": 0.04976
+          },
+          {
+            "origin": "2025-06-18T04:30:00+00:00",
+            "actualNext24hMm": 152.3,
+            "predictedProbability": 0.04741
+          },
+          {
+            "origin": "2025-06-18T05:30:00+00:00",
+            "actualNext24hMm": 150.7,
+            "predictedProbability": 0.04099
+          },
+          {
+            "origin": "2025-06-18T06:30:00+00:00",
+            "actualNext24hMm": 150.0,
+            "predictedProbability": 0.02569
+          },
+          {
+            "origin": "2025-06-18T07:30:00+00:00",
+            "actualNext24hMm": 149.0,
+            "predictedProbability": 0.02752
+          },
+          {
+            "origin": "2025-06-18T08:30:00+00:00",
+            "actualNext24hMm": 146.9,
+            "predictedProbability": 0.03988
+          },
+          {
+            "origin": "2025-06-18T09:30:00+00:00",
+            "actualNext24hMm": 146.0,
+            "predictedProbability": 0.0294
+          },
+          {
+            "origin": "2025-06-18T10:30:00+00:00",
+            "actualNext24hMm": 143.9,
+            "predictedProbability": 0.04406
+          },
+          {
+            "origin": "2025-08-17T23:30:00+00:00",
+            "actualNext24hMm": 65.1,
+            "predictedProbability": 0.01417
+          },
+          {
+            "origin": "2025-08-18T00:30:00+00:00",
+            "actualNext24hMm": 68.1,
+            "predictedProbability": 0.01546
+          },
+          {
+            "origin": "2025-08-18T01:30:00+00:00",
+            "actualNext24hMm": 72.3,
+            "predictedProbability": 0.01359
+          },
+          {
+            "origin": "2025-08-18T02:30:00+00:00",
+            "actualNext24hMm": 75.7,
+            "predictedProbability": 0.0145
+          },
+          {
+            "origin": "2025-08-18T03:30:00+00:00",
+            "actualNext24hMm": 79.3,
+            "predictedProbability": 0.01546
+          },
+          {
+            "origin": "2025-08-18T04:30:00+00:00",
+            "actualNext24hMm": 83.8,
+            "predictedProbability": 0.01638
+          },
+          {
+            "origin": "2025-08-18T05:30:00+00:00",
+            "actualNext24hMm": 87.9,
+            "predictedProbability": 0.01926
+          },
+          {
+            "origin": "2025-08-18T06:30:00+00:00",
+            "actualNext24hMm": 87.1,
+            "predictedProbability": 0.03193
+          },
+          {
+            "origin": "2025-08-18T10:30:00+00:00",
+            "actualNext24hMm": 73.2,
+            "predictedProbability": 0.04881
+          },
+          {
+            "origin": "2025-08-18T11:30:00+00:00",
+            "actualNext24hMm": 71.1,
+            "predictedProbability": 0.03111
+          },
+          {
+            "origin": "2025-08-18T12:30:00+00:00",
+            "actualNext24hMm": 70.0,
+            "predictedProbability": 0.02325
+          },
+          {
+            "origin": "2025-08-18T13:30:00+00:00",
+            "actualNext24hMm": 69.8,
+            "predictedProbability": 0.02156
+          },
+          {
+            "origin": "2025-08-18T14:30:00+00:00",
+            "actualNext24hMm": 69.6,
+            "predictedProbability": 0.02059
+          },
+          {
+            "origin": "2025-08-18T15:30:00+00:00",
+            "actualNext24hMm": 71.1,
+            "predictedProbability": 0.01861
+          },
+          {
+            "origin": "2025-08-18T16:30:00+00:00",
+            "actualNext24hMm": 72.2,
+            "predictedProbability": 0.02172
+          },
+          {
+            "origin": "2025-08-18T17:30:00+00:00",
+            "actualNext24hMm": 73.0,
+            "predictedProbability": 0.02205
+          },
+          {
+            "origin": "2025-08-18T18:30:00+00:00",
+            "actualNext24hMm": 75.7,
+            "predictedProbability": 0.01596
+          },
+          {
+            "origin": "2025-08-18T19:30:00+00:00",
+            "actualNext24hMm": 77.1,
+            "predictedProbability": 0.01941
+          },
+          {
+            "origin": "2025-08-18T20:30:00+00:00",
+            "actualNext24hMm": 77.4,
+            "predictedProbability": 0.02227
+          },
+          {
+            "origin": "2025-08-18T21:30:00+00:00",
+            "actualNext24hMm": 78.0,
+            "predictedProbability": 0.02062
+          },
+          {
+            "origin": "2025-08-18T22:30:00+00:00",
+            "actualNext24hMm": 78.2,
+            "predictedProbability": 0.02135
+          },
+          {
+            "origin": "2025-08-18T23:30:00+00:00",
+            "actualNext24hMm": 76.7,
+            "predictedProbability": 0.03154
+          },
+          {
+            "origin": "2025-08-19T00:30:00+00:00",
+            "actualNext24hMm": 74.0,
+            "predictedProbability": 0.04732
+          },
+          {
+            "origin": "2025-09-21T12:30:00+00:00",
+            "actualNext24hMm": 64.5,
+            "predictedProbability": 0.01512
+          },
+          {
+            "origin": "2025-09-21T13:30:00+00:00",
+            "actualNext24hMm": 67.5,
+            "predictedProbability": 0.01596
+          },
+          {
+            "origin": "2025-09-21T14:30:00+00:00",
+            "actualNext24hMm": 70.7,
+            "predictedProbability": 0.01101
+          },
+          {
+            "origin": "2025-09-21T15:30:00+00:00",
+            "actualNext24hMm": 73.2,
+            "predictedProbability": 0.0099
+          },
+          {
+            "origin": "2025-09-21T16:30:00+00:00",
+            "actualNext24hMm": 74.8,
+            "predictedProbability": 0.00846
+          },
+          {
+            "origin": "2025-09-21T17:30:00+00:00",
+            "actualNext24hMm": 75.5,
+            "predictedProbability": 0.00843
+          },
+          {
+            "origin": "2025-09-21T18:30:00+00:00",
+            "actualNext24hMm": 75.4,
+            "predictedProbability": 0.00837
+          },
+          {
+            "origin": "2025-09-21T19:30:00+00:00",
+            "actualNext24hMm": 75.3,
+            "predictedProbability": 0.00893
+          },
+          {
+            "origin": "2025-09-21T20:30:00+00:00",
+            "actualNext24hMm": 75.3,
+            "predictedProbability": 0.01017
+          },
+          {
+            "origin": "2025-09-21T21:30:00+00:00",
+            "actualNext24hMm": 74.6,
+            "predictedProbability": 0.01281
+          },
+          {
+            "origin": "2025-09-21T22:30:00+00:00",
+            "actualNext24hMm": 73.7,
+            "predictedProbability": 0.01396
+          },
+          {
+            "origin": "2025-09-21T23:30:00+00:00",
+            "actualNext24hMm": 72.3,
+            "predictedProbability": 0.01525
+          },
+          {
+            "origin": "2025-09-22T00:30:00+00:00",
+            "actualNext24hMm": 70.9,
+            "predictedProbability": 0.01593
+          },
+          {
+            "origin": "2025-09-22T01:30:00+00:00",
+            "actualNext24hMm": 69.3,
+            "predictedProbability": 0.01731
+          },
+          {
+            "origin": "2025-09-22T02:30:00+00:00",
+            "actualNext24hMm": 67.4,
+            "predictedProbability": 0.02036
+          },
+          {
+            "origin": "2025-09-22T03:30:00+00:00",
+            "actualNext24hMm": 66.0,
+            "predictedProbability": 0.01794
+          },
+          {
+            "origin": "2025-09-22T04:30:00+00:00",
+            "actualNext24hMm": 64.7,
+            "predictedProbability": 0.01767
+          },
+          {
+            "origin": "2025-09-27T11:30:00+00:00",
+            "actualNext24hMm": 67.9,
+            "predictedProbability": 0.00861
+          },
+          {
+            "origin": "2025-09-27T12:30:00+00:00",
+            "actualNext24hMm": 73.0,
+            "predictedProbability": 0.00852
+          },
+          {
+            "origin": "2025-09-27T13:30:00+00:00",
+            "actualNext24hMm": 77.7,
+            "predictedProbability": 0.00845
+          },
+          {
+            "origin": "2025-09-27T14:30:00+00:00",
+            "actualNext24hMm": 81.2,
+            "predictedProbability": 0.00837
+          },
+          {
+            "origin": "2025-09-27T15:30:00+00:00",
+            "actualNext24hMm": 83.5,
+            "predictedProbability": 0.009
+          },
+          {
+            "origin": "2025-09-27T16:30:00+00:00",
+            "actualNext24hMm": 85.8,
+            "predictedProbability": 0.00829
+          },
+          {
+            "origin": "2025-09-27T17:30:00+00:00",
+            "actualNext24hMm": 87.1,
+            "predictedProbability": 0.00965
+          },
+          {
+            "origin": "2025-09-27T18:30:00+00:00",
+            "actualNext24hMm": 86.2,
+            "predictedProbability": 0.01155
+          },
+          {
+            "origin": "2025-09-27T19:30:00+00:00",
+            "actualNext24hMm": 84.7,
+            "predictedProbability": 0.01455
+          },
+          {
+            "origin": "2025-09-27T20:30:00+00:00",
+            "actualNext24hMm": 83.2,
+            "predictedProbability": 0.01523
+          },
+          {
+            "origin": "2025-09-27T21:30:00+00:00",
+            "actualNext24hMm": 81.4,
+            "predictedProbability": 0.01791
+          },
+          {
+            "origin": "2025-09-27T22:30:00+00:00",
+            "actualNext24hMm": 79.4,
+            "predictedProbability": 0.02045
+          },
+          {
+            "origin": "2025-09-27T23:30:00+00:00",
+            "actualNext24hMm": 77.5,
+            "predictedProbability": 0.02067
+          },
+          {
+            "origin": "2025-09-28T00:30:00+00:00",
+            "actualNext24hMm": 75.6,
+            "predictedProbability": 0.0207
+          },
+          {
+            "origin": "2025-09-28T01:30:00+00:00",
+            "actualNext24hMm": 72.3,
+            "predictedProbability": 0.037
+          },
+          {
+            "origin": "2025-09-28T02:30:00+00:00",
+            "actualNext24hMm": 68.5,
+            "predictedProbability": 0.04811
+          }
+        ],
+        "falsePositiveExamples": [
+          {
+            "origin": "2025-05-25T01:30:00+00:00",
+            "actualNext24hMm": 39.3,
+            "predictedProbability": 0.07034
+          },
+          {
+            "origin": "2025-05-25T02:30:00+00:00",
+            "actualNext24hMm": 37.3,
+            "predictedProbability": 0.06572
+          },
+          {
+            "origin": "2025-05-25T03:30:00+00:00",
+            "actualNext24hMm": 35.9,
+            "predictedProbability": 0.06287
+          },
+          {
+            "origin": "2025-05-25T22:30:00+00:00",
+            "actualNext24hMm": 31.6,
+            "predictedProbability": 0.06161
+          },
+          {
+            "origin": "2025-05-25T23:30:00+00:00",
+            "actualNext24hMm": 30.1,
+            "predictedProbability": 0.06483
+          },
+          {
+            "origin": "2025-05-26T00:30:00+00:00",
+            "actualNext24hMm": 29.4,
+            "predictedProbability": 0.07198
+          },
+          {
+            "origin": "2025-05-26T01:30:00+00:00",
+            "actualNext24hMm": 28.7,
+            "predictedProbability": 0.05792
+          },
+          {
+            "origin": "2025-05-26T05:30:00+00:00",
+            "actualNext24hMm": 24.5,
+            "predictedProbability": 0.05606
+          },
+          {
+            "origin": "2025-06-13T01:30:00+00:00",
+            "actualNext24hMm": 38.4,
+            "predictedProbability": 0.05016
+          },
+          {
+            "origin": "2025-06-13T17:30:00+00:00",
+            "actualNext24hMm": 26.9,
+            "predictedProbability": 0.06826
+          },
+          {
+            "origin": "2025-06-15T05:30:00+00:00",
+            "actualNext24hMm": 35.5,
+            "predictedProbability": 0.34204
+          },
+          {
+            "origin": "2025-06-16T03:30:00+00:00",
+            "actualNext24hMm": 22.3,
+            "predictedProbability": 0.05144
+          },
+          {
+            "origin": "2025-06-16T10:30:00+00:00",
+            "actualNext24hMm": 9.8,
+            "predictedProbability": 0.05772
+          },
+          {
+            "origin": "2025-06-18T21:30:00+00:00",
+            "actualNext24hMm": 53.5,
+            "predictedProbability": 0.9761
+          },
+          {
+            "origin": "2025-06-18T22:30:00+00:00",
+            "actualNext24hMm": 41.9,
+            "predictedProbability": 0.96201
+          },
+          {
+            "origin": "2025-06-18T23:30:00+00:00",
+            "actualNext24hMm": 31.4,
+            "predictedProbability": 0.96058
+          },
+          {
+            "origin": "2025-06-19T00:30:00+00:00",
+            "actualNext24hMm": 22.1,
+            "predictedProbability": 0.95535
+          },
+          {
+            "origin": "2025-06-19T01:30:00+00:00",
+            "actualNext24hMm": 15.9,
+            "predictedProbability": 0.87203
+          },
+          {
+            "origin": "2025-06-19T02:30:00+00:00",
+            "actualNext24hMm": 13.9,
+            "predictedProbability": 0.53896
+          },
+          {
+            "origin": "2025-06-19T03:30:00+00:00",
+            "actualNext24hMm": 13.1,
+            "predictedProbability": 0.37208
+          },
+          {
+            "origin": "2025-06-19T04:30:00+00:00",
+            "actualNext24hMm": 12.3,
+            "predictedProbability": 0.32772
+          },
+          {
+            "origin": "2025-06-19T05:30:00+00:00",
+            "actualNext24hMm": 11.5,
+            "predictedProbability": 0.28764
+          },
+          {
+            "origin": "2025-06-19T06:30:00+00:00",
+            "actualNext24hMm": 11.4,
+            "predictedProbability": 0.20211
+          },
+          {
+            "origin": "2025-06-19T07:30:00+00:00",
+            "actualNext24hMm": 11.7,
+            "predictedProbability": 0.17527
+          },
+          {
+            "origin": "2025-06-19T08:30:00+00:00",
+            "actualNext24hMm": 11.7,
+            "predictedProbability": 0.1742
+          },
+          {
+            "origin": "2025-06-19T09:30:00+00:00",
+            "actualNext24hMm": 11.6,
+            "predictedProbability": 0.20408
+          },
+          {
+            "origin": "2025-06-19T10:30:00+00:00",
+            "actualNext24hMm": 11.3,
+            "predictedProbability": 0.20954
+          },
+          {
+            "origin": "2025-06-19T11:30:00+00:00",
+            "actualNext24hMm": 10.5,
+            "predictedProbability": 0.25008
+          },
+          {
+            "origin": "2025-06-19T12:30:00+00:00",
+            "actualNext24hMm": 9.7,
+            "predictedProbability": 0.26024
+          },
+          {
+            "origin": "2025-06-19T13:30:00+00:00",
+            "actualNext24hMm": 9.3,
+            "predictedProbability": 0.22632
+          },
+          {
+            "origin": "2025-06-19T14:30:00+00:00",
+            "actualNext24hMm": 8.9,
+            "predictedProbability": 0.23344
+          },
+          {
+            "origin": "2025-06-19T15:30:00+00:00",
+            "actualNext24hMm": 8.7,
+            "predictedProbability": 0.20659
+          },
+          {
+            "origin": "2025-06-19T16:30:00+00:00",
+            "actualNext24hMm": 8.7,
+            "predictedProbability": 0.17965
+          },
+          {
+            "origin": "2025-06-19T17:30:00+00:00",
+            "actualNext24hMm": 8.8,
+            "predictedProbability": 0.15823
+          },
+          {
+            "origin": "2025-06-19T18:30:00+00:00",
+            "actualNext24hMm": 8.9,
+            "predictedProbability": 0.12201
+          },
+          {
+            "origin": "2025-06-19T19:30:00+00:00",
+            "actualNext24hMm": 9.1,
+            "predictedProbability": 0.09707
+          },
+          {
+            "origin": "2025-06-19T20:30:00+00:00",
+            "actualNext24hMm": 9.2,
+            "predictedProbability": 0.08804
+          },
+          {
+            "origin": "2025-06-19T21:30:00+00:00",
+            "actualNext24hMm": 9.2,
+            "predictedProbability": 0.06385
+          },
+          {
+            "origin": "2025-06-19T22:30:00+00:00",
+            "actualNext24hMm": 9.1,
+            "predictedProbability": 0.05154
+          },
+          {
+            "origin": "2025-08-19T04:30:00+00:00",
+            "actualNext24hMm": 60.2,
+            "predictedProbability": 0.1129
+          },
+          {
+            "origin": "2025-08-19T05:30:00+00:00",
+            "actualNext24hMm": 55.4,
+            "predictedProbability": 0.13845
+          },
+          {
+            "origin": "2025-08-19T06:30:00+00:00",
+            "actualNext24hMm": 54.5,
+            "predictedProbability": 0.06952
+          },
+          {
+            "origin": "2025-08-19T07:30:00+00:00",
+            "actualNext24hMm": 53.0,
+            "predictedProbability": 0.10514
+          },
+          {
+            "origin": "2025-08-19T08:30:00+00:00",
+            "actualNext24hMm": 52.7,
+            "predictedProbability": 0.0827
+          },
+          {
+            "origin": "2025-08-19T09:30:00+00:00",
+            "actualNext24hMm": 52.5,
+            "predictedProbability": 0.07802
+          },
+          {
+            "origin": "2025-08-19T10:30:00+00:00",
+            "actualNext24hMm": 51.4,
+            "predictedProbability": 0.09001
+          },
+          {
+            "origin": "2025-08-19T11:30:00+00:00",
+            "actualNext24hMm": 51.0,
+            "predictedProbability": 0.06959
+          },
+          {
+            "origin": "2025-08-19T12:30:00+00:00",
+            "actualNext24hMm": 50.4,
+            "predictedProbability": 0.07035
+          },
+          {
+            "origin": "2025-08-19T13:30:00+00:00",
+            "actualNext24hMm": 50.3,
+            "predictedProbability": 0.09113
+          },
+          {
+            "origin": "2025-08-19T14:30:00+00:00",
+            "actualNext24hMm": 50.3,
+            "predictedProbability": 0.08703
+          },
+          {
+            "origin": "2025-08-19T15:30:00+00:00",
+            "actualNext24hMm": 48.9,
+            "predictedProbability": 0.15277
+          },
+          {
+            "origin": "2025-08-19T16:30:00+00:00",
+            "actualNext24hMm": 47.6,
+            "predictedProbability": 0.17674
+          },
+          {
+            "origin": "2025-08-19T17:30:00+00:00",
+            "actualNext24hMm": 47.5,
+            "predictedProbability": 0.17904
+          },
+          {
+            "origin": "2025-08-19T18:30:00+00:00",
+            "actualNext24hMm": 44.9,
+            "predictedProbability": 0.27062
+          },
+          {
+            "origin": "2025-08-19T19:30:00+00:00",
+            "actualNext24hMm": 43.7,
+            "predictedProbability": 0.25377
+          },
+          {
+            "origin": "2025-08-19T20:30:00+00:00",
+            "actualNext24hMm": 42.6,
+            "predictedProbability": 0.23298
+          },
+          {
+            "origin": "2025-08-19T21:30:00+00:00",
+            "actualNext24hMm": 41.3,
+            "predictedProbability": 0.25485
+          },
+          {
+            "origin": "2025-08-19T22:30:00+00:00",
+            "actualNext24hMm": 39.7,
+            "predictedProbability": 0.24741
+          },
+          {
+            "origin": "2025-08-19T23:30:00+00:00",
+            "actualNext24hMm": 39.1,
+            "predictedProbability": 0.21644
+          },
+          {
+            "origin": "2025-08-20T00:30:00+00:00",
+            "actualNext24hMm": 38.1,
+            "predictedProbability": 0.21363
+          },
+          {
+            "origin": "2025-08-20T01:30:00+00:00",
+            "actualNext24hMm": 36.8,
+            "predictedProbability": 0.20883
+          },
+          {
+            "origin": "2025-08-20T02:30:00+00:00",
+            "actualNext24hMm": 35.9,
+            "predictedProbability": 0.20869
+          },
+          {
+            "origin": "2025-08-20T03:30:00+00:00",
+            "actualNext24hMm": 35.7,
+            "predictedProbability": 0.20465
+          },
+          {
+            "origin": "2025-08-20T04:30:00+00:00",
+            "actualNext24hMm": 35.6,
+            "predictedProbability": 0.16606
+          },
+          {
+            "origin": "2025-08-20T05:30:00+00:00",
+            "actualNext24hMm": 34.7,
+            "predictedProbability": 0.12874
+          },
+          {
+            "origin": "2025-08-20T06:30:00+00:00",
+            "actualNext24hMm": 32.8,
+            "predictedProbability": 0.17413
+          },
+          {
+            "origin": "2025-08-20T07:30:00+00:00",
+            "actualNext24hMm": 30.3,
+            "predictedProbability": 0.18154
+          },
+          {
+            "origin": "2025-08-20T08:30:00+00:00",
+            "actualNext24hMm": 27.8,
+            "predictedProbability": 0.17766
+          },
+          {
+            "origin": "2025-08-20T09:30:00+00:00",
+            "actualNext24hMm": 25.8,
+            "predictedProbability": 0.15179
+          },
+          {
+            "origin": "2025-08-20T10:30:00+00:00",
+            "actualNext24hMm": 24.5,
+            "predictedProbability": 0.10809
+          },
+          {
+            "origin": "2025-08-20T11:30:00+00:00",
+            "actualNext24hMm": 23.6,
+            "predictedProbability": 0.09849
+          },
+          {
+            "origin": "2025-08-20T12:30:00+00:00",
+            "actualNext24hMm": 23.3,
+            "predictedProbability": 0.07998
+          },
+          {
+            "origin": "2025-08-20T13:30:00+00:00",
+            "actualNext24hMm": 22.3,
+            "predictedProbability": 0.11635
+          },
+          {
+            "origin": "2025-08-20T14:30:00+00:00",
+            "actualNext24hMm": 21.4,
+            "predictedProbability": 0.10489
+          },
+          {
+            "origin": "2025-08-20T15:30:00+00:00",
+            "actualNext24hMm": 20.9,
+            "predictedProbability": 0.09281
+          },
+          {
+            "origin": "2025-08-20T16:30:00+00:00",
+            "actualNext24hMm": 19.9,
+            "predictedProbability": 0.09864
+          },
+          {
+            "origin": "2025-08-20T17:30:00+00:00",
+            "actualNext24hMm": 17.9,
+            "predictedProbability": 0.14261
+          },
+          {
+            "origin": "2025-08-20T18:30:00+00:00",
+            "actualNext24hMm": 17.4,
+            "predictedProbability": 0.07307
+          },
+          {
+            "origin": "2025-08-20T19:30:00+00:00",
+            "actualNext24hMm": 16.0,
+            "predictedProbability": 0.09739
+          },
+          {
+            "origin": "2025-08-20T20:30:00+00:00",
+            "actualNext24hMm": 15.2,
+            "predictedProbability": 0.0772
+          },
+          {
+            "origin": "2025-08-20T21:30:00+00:00",
+            "actualNext24hMm": 14.3,
+            "predictedProbability": 0.06866
+          },
+          {
+            "origin": "2025-08-20T22:30:00+00:00",
+            "actualNext24hMm": 13.9,
+            "predictedProbability": 0.05133
+          },
+          {
+            "origin": "2025-08-20T23:30:00+00:00",
+            "actualNext24hMm": 13.0,
+            "predictedProbability": 0.05993
+          },
+          {
+            "origin": "2025-08-21T03:30:00+00:00",
+            "actualNext24hMm": 11.6,
+            "predictedProbability": 0.06299
+          },
+          {
+            "origin": "2025-08-21T04:30:00+00:00",
+            "actualNext24hMm": 10.6,
+            "predictedProbability": 0.06397
+          },
+          {
+            "origin": "2025-09-16T08:30:00+00:00",
+            "actualNext24hMm": 34.1,
+            "predictedProbability": 0.05425
+          },
+          {
+            "origin": "2025-09-16T09:30:00+00:00",
+            "actualNext24hMm": 30.3,
+            "predictedProbability": 0.06362
+          },
+          {
+            "origin": "2025-09-16T10:30:00+00:00",
+            "actualNext24hMm": 27.2,
+            "predictedProbability": 0.05284
+          },
+          {
+            "origin": "2025-09-22T06:30:00+00:00",
+            "actualNext24hMm": 57.3,
+            "predictedProbability": 0.12752
+          },
+          {
+            "origin": "2025-09-22T07:30:00+00:00",
+            "actualNext24hMm": 49.4,
+            "predictedProbability": 0.27057
+          },
+          {
+            "origin": "2025-09-22T08:30:00+00:00",
+            "actualNext24hMm": 42.2,
+            "predictedProbability": 0.26432
+          },
+          {
+            "origin": "2025-09-22T09:30:00+00:00",
+            "actualNext24hMm": 35.5,
+            "predictedProbability": 0.28166
+          },
+          {
+            "origin": "2025-09-22T10:30:00+00:00",
+            "actualNext24hMm": 29.3,
+            "predictedProbability": 0.24716
+          },
+          {
+            "origin": "2025-09-22T11:30:00+00:00",
+            "actualNext24hMm": 23.9,
+            "predictedProbability": 0.22518
+          },
+          {
+            "origin": "2025-09-22T12:30:00+00:00",
+            "actualNext24hMm": 18.4,
+            "predictedProbability": 0.25232
+          },
+          {
+            "origin": "2025-09-22T13:30:00+00:00",
+            "actualNext24hMm": 13.8,
+            "predictedProbability": 0.19219
+          },
+          {
+            "origin": "2025-09-22T14:30:00+00:00",
+            "actualNext24hMm": 10.0,
+            "predictedProbability": 0.15008
+          },
+          {
+            "origin": "2025-09-22T15:30:00+00:00",
+            "actualNext24hMm": 7.2,
+            "predictedProbability": 0.10488
+          },
+          {
+            "origin": "2025-09-22T16:30:00+00:00",
+            "actualNext24hMm": 5.7,
+            "predictedProbability": 0.06255
+          },
+          {
+            "origin": "2025-09-28T03:30:00+00:00",
+            "actualNext24hMm": 61.8,
+            "predictedProbability": 0.15023
+          }
+        ]
+      },
+      "calibratedProbabilityMetrics": {
+        "threshold": 0.02,
+        "positiveClass": "next 24-hour ERA5 rainfall >= 64.5 mm",
+        "n": 8688,
+        "truePositives": 9,
+        "falsePositives": 71,
+        "trueNegatives": 8525,
+        "falseNegatives": 83,
+        "accuracy": 0.9822744014732965,
+        "precision": 0.1125,
+        "recall": 0.09782608695652174,
+        "f1": 0.10465116279069768,
+        "falsePositiveRate": 0.008259655653792462,
+        "falseNegativeRate": 0.9021739130434783,
+        "brierScore": 0.010355668780946077,
+        "expectedCalibrationError": 0.0023479100874982143,
+        "calibrationMethod": "online equal-width probability bins with Beta(1,1) smoothing",
+        "reliabilityBins": [
+          {
+            "binStart": 0.0,
+            "binEnd": 0.1,
+            "count": 8679,
+            "meanPredictedProbability": 0.01250135870386379,
+            "observedEventRate": 0.010254637631063487
+          },
+          {
+            "binStart": 0.1,
+            "binEnd": 0.2,
+            "count": 1,
+            "meanPredictedProbability": 0.11363636363636363,
+            "observedEventRate": 0.0
+          },
+          {
+            "binStart": 0.2,
+            "binEnd": 0.3,
+            "count": 6,
+            "meanPredictedProbability": 0.25,
+            "observedEventRate": 0.3333333333333333
+          },
+          {
+            "binStart": 0.3,
+            "binEnd": 0.4,
+            "count": 2,
+            "meanPredictedProbability": 0.35714285714285715,
+            "observedEventRate": 0.5
+          }
+        ],
+        "falseNegativeExamples": [
+          {
+            "origin": "2025-06-17T15:30:00+00:00",
+            "actualNext24hMm": 66.8,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T16:30:00+00:00",
+            "actualNext24hMm": 72.6,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T17:30:00+00:00",
+            "actualNext24hMm": 78.4,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T18:30:00+00:00",
+            "actualNext24hMm": 89.2,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T19:30:00+00:00",
+            "actualNext24hMm": 101.3,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T20:30:00+00:00",
+            "actualNext24hMm": 114.4,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T21:30:00+00:00",
+            "actualNext24hMm": 126.5,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T22:30:00+00:00",
+            "actualNext24hMm": 136.5,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-17T23:30:00+00:00",
+            "actualNext24hMm": 145.8,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T00:30:00+00:00",
+            "actualNext24hMm": 153.6,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T01:30:00+00:00",
+            "actualNext24hMm": 157.7,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T02:30:00+00:00",
+            "actualNext24hMm": 156.8,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T03:30:00+00:00",
+            "actualNext24hMm": 154.4,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T04:30:00+00:00",
+            "actualNext24hMm": 152.3,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T05:30:00+00:00",
+            "actualNext24hMm": 150.7,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T06:30:00+00:00",
+            "actualNext24hMm": 150.0,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T07:30:00+00:00",
+            "actualNext24hMm": 149.0,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T08:30:00+00:00",
+            "actualNext24hMm": 146.9,
+            "predictedProbability": 0.01085
+          },
+          {
+            "origin": "2025-06-18T09:30:00+00:00",
+            "actualNext24hMm": 146.0,
+            "predictedProbability": 0.01084
+          },
+          {
+            "origin": "2025-06-18T10:30:00+00:00",
+            "actualNext24hMm": 143.9,
+            "predictedProbability": 0.01084
+          },
+          {
+            "origin": "2025-06-18T11:30:00+00:00",
+            "actualNext24hMm": 140.3,
+            "predictedProbability": 0.01084
+          },
+          {
+            "origin": "2025-08-17T23:30:00+00:00",
+            "actualNext24hMm": 65.1,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T00:30:00+00:00",
+            "actualNext24hMm": 68.1,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T01:30:00+00:00",
+            "actualNext24hMm": 72.3,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T02:30:00+00:00",
+            "actualNext24hMm": 75.7,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T03:30:00+00:00",
+            "actualNext24hMm": 79.3,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T04:30:00+00:00",
+            "actualNext24hMm": 83.8,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T05:30:00+00:00",
+            "actualNext24hMm": 87.9,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T06:30:00+00:00",
+            "actualNext24hMm": 87.1,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T07:30:00+00:00",
+            "actualNext24hMm": 85.4,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T08:30:00+00:00",
+            "actualNext24hMm": 81.3,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T09:30:00+00:00",
+            "actualNext24hMm": 76.2,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T10:30:00+00:00",
+            "actualNext24hMm": 73.2,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T11:30:00+00:00",
+            "actualNext24hMm": 71.1,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T12:30:00+00:00",
+            "actualNext24hMm": 70.0,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T13:30:00+00:00",
+            "actualNext24hMm": 69.8,
+            "predictedProbability": 0.0111
+          },
+          {
+            "origin": "2025-08-18T14:30:00+00:00",
+            "actualNext24hMm": 69.6,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T15:30:00+00:00",
+            "actualNext24hMm": 71.1,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T16:30:00+00:00",
+            "actualNext24hMm": 72.2,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T17:30:00+00:00",
+            "actualNext24hMm": 73.0,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T18:30:00+00:00",
+            "actualNext24hMm": 75.7,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T19:30:00+00:00",
+            "actualNext24hMm": 77.1,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T20:30:00+00:00",
+            "actualNext24hMm": 77.4,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T21:30:00+00:00",
+            "actualNext24hMm": 78.0,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T22:30:00+00:00",
+            "actualNext24hMm": 78.2,
+            "predictedProbability": 0.01109
+          },
+          {
+            "origin": "2025-08-18T23:30:00+00:00",
+            "actualNext24hMm": 76.7,
+            "predictedProbability": 0.01114
+          },
+          {
+            "origin": "2025-08-19T00:30:00+00:00",
+            "actualNext24hMm": 74.0,
+            "predictedProbability": 0.01118
+          },
+          {
+            "origin": "2025-08-19T01:30:00+00:00",
+            "actualNext24hMm": 70.6,
+            "predictedProbability": 0.01123
+          },
+          {
+            "origin": "2025-08-19T02:30:00+00:00",
+            "actualNext24hMm": 67.8,
+            "predictedProbability": 0.01127
+          },
+          {
+            "origin": "2025-08-19T03:30:00+00:00",
+            "actualNext24hMm": 64.6,
+            "predictedProbability": 0.01132
+          },
+          {
+            "origin": "2025-09-21T12:30:00+00:00",
+            "actualNext24hMm": 64.5,
+            "predictedProbability": 0.012
+          },
+          {
+            "origin": "2025-09-21T13:30:00+00:00",
+            "actualNext24hMm": 67.5,
+            "predictedProbability": 0.012
+          },
+          {
+            "origin": "2025-09-21T14:30:00+00:00",
+            "actualNext24hMm": 70.7,
+            "predictedProbability": 0.012
+          },
+          {
+            "origin": "2025-09-21T15:30:00+00:00",
+            "actualNext24hMm": 73.2,
+            "predictedProbability": 0.012
+          },
+          {
+            "origin": "2025-09-21T16:30:00+00:00",
+            "actualNext24hMm": 74.8,
+            "predictedProbability": 0.012
+          },
+          {
+            "origin": "2025-09-21T17:30:00+00:00",
+            "actualNext24hMm": 75.5,
+            "predictedProbability": 0.012
+          },
+          {
+            "origin": "2025-09-21T18:30:00+00:00",
+            "actualNext24hMm": 75.4,
+            "predictedProbability": 0.012
+          },
+          {
+            "origin": "2025-09-21T19:30:00+00:00",
+            "actualNext24hMm": 75.3,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-21T20:30:00+00:00",
+            "actualNext24hMm": 75.3,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-21T21:30:00+00:00",
+            "actualNext24hMm": 74.6,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-21T22:30:00+00:00",
+            "actualNext24hMm": 73.7,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-21T23:30:00+00:00",
+            "actualNext24hMm": 72.3,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-22T00:30:00+00:00",
+            "actualNext24hMm": 70.9,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-22T01:30:00+00:00",
+            "actualNext24hMm": 69.3,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-22T02:30:00+00:00",
+            "actualNext24hMm": 67.4,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-22T03:30:00+00:00",
+            "actualNext24hMm": 66.0,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-22T04:30:00+00:00",
+            "actualNext24hMm": 64.7,
+            "predictedProbability": 0.01199
+          },
+          {
+            "origin": "2025-09-27T11:30:00+00:00",
+            "actualNext24hMm": 67.9,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T12:30:00+00:00",
+            "actualNext24hMm": 73.0,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T13:30:00+00:00",
+            "actualNext24hMm": 77.7,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T14:30:00+00:00",
+            "actualNext24hMm": 81.2,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T15:30:00+00:00",
+            "actualNext24hMm": 83.5,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T16:30:00+00:00",
+            "actualNext24hMm": 85.8,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T17:30:00+00:00",
+            "actualNext24hMm": 87.1,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T18:30:00+00:00",
+            "actualNext24hMm": 86.2,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T19:30:00+00:00",
+            "actualNext24hMm": 84.7,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T20:30:00+00:00",
+            "actualNext24hMm": 83.2,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T21:30:00+00:00",
+            "actualNext24hMm": 81.4,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T22:30:00+00:00",
+            "actualNext24hMm": 79.4,
+            "predictedProbability": 0.01268
+          },
+          {
+            "origin": "2025-09-27T23:30:00+00:00",
+            "actualNext24hMm": 77.5,
+            "predictedProbability": 0.01267
+          },
+          {
+            "origin": "2025-09-28T00:30:00+00:00",
+            "actualNext24hMm": 75.6,
+            "predictedProbability": 0.01267
+          },
+          {
+            "origin": "2025-09-28T01:30:00+00:00",
+            "actualNext24hMm": 72.3,
+            "predictedProbability": 0.01267
+          },
+          {
+            "origin": "2025-09-28T02:30:00+00:00",
+            "actualNext24hMm": 68.5,
+            "predictedProbability": 0.01267
+          }
+        ],
+        "falsePositiveExamples": [
+          {
+            "origin": "2025-06-15T05:30:00+00:00",
+            "actualNext24hMm": 35.5,
+            "predictedProbability": 0.06623
+          },
+          {
+            "origin": "2025-06-18T21:30:00+00:00",
+            "actualNext24hMm": 53.5,
+            "predictedProbability": 0.25
+          },
+          {
+            "origin": "2025-06-18T22:30:00+00:00",
+            "actualNext24hMm": 41.9,
+            "predictedProbability": 0.25
+          },
+          {
+            "origin": "2025-06-18T23:30:00+00:00",
+            "actualNext24hMm": 31.4,
+            "predictedProbability": 0.25
+          },
+          {
+            "origin": "2025-06-19T00:30:00+00:00",
+            "actualNext24hMm": 22.1,
+            "predictedProbability": 0.25
+          },
+          {
+            "origin": "2025-06-19T01:30:00+00:00",
+            "actualNext24hMm": 15.9,
+            "predictedProbability": 0.35714
+          },
+          {
+            "origin": "2025-06-19T02:30:00+00:00",
+            "actualNext24hMm": 13.9,
+            "predictedProbability": 0.11364
+          },
+          {
+            "origin": "2025-06-19T03:30:00+00:00",
+            "actualNext24hMm": 13.1,
+            "predictedProbability": 0.06579
+          },
+          {
+            "origin": "2025-06-19T04:30:00+00:00",
+            "actualNext24hMm": 12.3,
+            "predictedProbability": 0.06579
+          },
+          {
+            "origin": "2025-06-19T05:30:00+00:00",
+            "actualNext24hMm": 11.5,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T06:30:00+00:00",
+            "actualNext24hMm": 11.4,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T07:30:00+00:00",
+            "actualNext24hMm": 11.7,
+            "predictedProbability": 0.06163
+          },
+          {
+            "origin": "2025-06-19T08:30:00+00:00",
+            "actualNext24hMm": 11.7,
+            "predictedProbability": 0.06163
+          },
+          {
+            "origin": "2025-06-19T09:30:00+00:00",
+            "actualNext24hMm": 11.6,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T10:30:00+00:00",
+            "actualNext24hMm": 11.3,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T11:30:00+00:00",
+            "actualNext24hMm": 10.5,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T12:30:00+00:00",
+            "actualNext24hMm": 9.7,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T13:30:00+00:00",
+            "actualNext24hMm": 9.3,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T14:30:00+00:00",
+            "actualNext24hMm": 8.9,
+            "predictedProbability": 0.02676
+          },
+          {
+            "origin": "2025-06-19T15:30:00+00:00",
+            "actualNext24hMm": 8.7,
+            "predictedProbability": 0.03
+          },
+          {
+            "origin": "2025-06-19T16:30:00+00:00",
+            "actualNext24hMm": 8.7,
+            "predictedProbability": 0.06595
+          },
+          {
+            "origin": "2025-06-19T17:30:00+00:00",
+            "actualNext24hMm": 8.8,
+            "predictedProbability": 0.06595
+          },
+          {
+            "origin": "2025-06-19T18:30:00+00:00",
+            "actualNext24hMm": 8.9,
+            "predictedProbability": 0.06595
+          },
+          {
+            "origin": "2025-08-19T04:30:00+00:00",
+            "actualNext24hMm": 60.2,
+            "predictedProbability": 0.06545
+          },
+          {
+            "origin": "2025-08-19T05:30:00+00:00",
+            "actualNext24hMm": 55.4,
+            "predictedProbability": 0.06545
+          },
+          {
+            "origin": "2025-08-19T07:30:00+00:00",
+            "actualNext24hMm": 53.0,
+            "predictedProbability": 0.06545
+          },
+          {
+            "origin": "2025-08-19T15:30:00+00:00",
+            "actualNext24hMm": 48.9,
+            "predictedProbability": 0.06545
+          },
+          {
+            "origin": "2025-08-19T16:30:00+00:00",
+            "actualNext24hMm": 47.6,
+            "predictedProbability": 0.06545
+          },
+          {
+            "origin": "2025-08-19T17:30:00+00:00",
+            "actualNext24hMm": 47.5,
+            "predictedProbability": 0.06545
+          },
+          {
+            "origin": "2025-08-19T18:30:00+00:00",
+            "actualNext24hMm": 44.9,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-19T19:30:00+00:00",
+            "actualNext24hMm": 43.7,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-19T20:30:00+00:00",
+            "actualNext24hMm": 42.6,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-19T21:30:00+00:00",
+            "actualNext24hMm": 41.3,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-19T22:30:00+00:00",
+            "actualNext24hMm": 39.7,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-19T23:30:00+00:00",
+            "actualNext24hMm": 39.1,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-20T00:30:00+00:00",
+            "actualNext24hMm": 38.1,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-20T01:30:00+00:00",
+            "actualNext24hMm": 36.8,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-20T02:30:00+00:00",
+            "actualNext24hMm": 35.9,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-20T03:30:00+00:00",
+            "actualNext24hMm": 35.7,
+            "predictedProbability": 0.03537
+          },
+          {
+            "origin": "2025-08-20T04:30:00+00:00",
+            "actualNext24hMm": 35.6,
+            "predictedProbability": 0.06535
+          },
+          {
+            "origin": "2025-08-20T05:30:00+00:00",
+            "actualNext24hMm": 34.7,
+            "predictedProbability": 0.06525
+          },
+          {
+            "origin": "2025-08-20T06:30:00+00:00",
+            "actualNext24hMm": 32.8,
+            "predictedProbability": 0.06525
+          },
+          {
+            "origin": "2025-08-20T07:30:00+00:00",
+            "actualNext24hMm": 30.3,
+            "predictedProbability": 0.06515
+          },
+          {
+            "origin": "2025-08-20T08:30:00+00:00",
+            "actualNext24hMm": 27.8,
+            "predictedProbability": 0.06515
+          },
+          {
+            "origin": "2025-08-20T09:30:00+00:00",
+            "actualNext24hMm": 25.8,
+            "predictedProbability": 0.06515
+          },
+          {
+            "origin": "2025-08-20T10:30:00+00:00",
+            "actualNext24hMm": 24.5,
+            "predictedProbability": 0.06515
+          },
+          {
+            "origin": "2025-08-20T13:30:00+00:00",
+            "actualNext24hMm": 22.3,
+            "predictedProbability": 0.06515
+          },
+          {
+            "origin": "2025-08-20T14:30:00+00:00",
+            "actualNext24hMm": 21.4,
+            "predictedProbability": 0.06515
+          },
+          {
+            "origin": "2025-08-20T17:30:00+00:00",
+            "actualNext24hMm": 17.9,
+            "predictedProbability": 0.06486
+          },
+          {
+            "origin": "2025-09-22T06:30:00+00:00",
+            "actualNext24hMm": 57.3,
+            "predictedProbability": 0.06389
+          },
+          {
+            "origin": "2025-09-22T07:30:00+00:00",
+            "actualNext24hMm": 49.4,
+            "predictedProbability": 0.03427
+          },
+          {
+            "origin": "2025-09-22T08:30:00+00:00",
+            "actualNext24hMm": 42.2,
+            "predictedProbability": 0.03427
+          },
+          {
+            "origin": "2025-09-22T09:30:00+00:00",
+            "actualNext24hMm": 35.5,
+            "predictedProbability": 0.03427
+          },
+          {
+            "origin": "2025-09-22T10:30:00+00:00",
+            "actualNext24hMm": 29.3,
+            "predictedProbability": 0.03427
+          },
+          {
+            "origin": "2025-09-22T11:30:00+00:00",
+            "actualNext24hMm": 23.9,
+            "predictedProbability": 0.03427
+          },
+          {
+            "origin": "2025-09-22T12:30:00+00:00",
+            "actualNext24hMm": 18.4,
+            "predictedProbability": 0.03427
+          },
+          {
+            "origin": "2025-09-22T13:30:00+00:00",
+            "actualNext24hMm": 13.8,
+            "predictedProbability": 0.06389
+          },
+          {
+            "origin": "2025-09-22T14:30:00+00:00",
+            "actualNext24hMm": 10.0,
+            "predictedProbability": 0.06389
+          },
+          {
+            "origin": "2025-09-22T15:30:00+00:00",
+            "actualNext24hMm": 7.2,
+            "predictedProbability": 0.06389
+          },
+          {
+            "origin": "2025-09-28T03:30:00+00:00",
+            "actualNext24hMm": 61.8,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T04:30:00+00:00",
+            "actualNext24hMm": 54.8,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T05:30:00+00:00",
+            "actualNext24hMm": 48.3,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T09:30:00+00:00",
+            "actualNext24hMm": 32.8,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T10:30:00+00:00",
+            "actualNext24hMm": 27.2,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T11:30:00+00:00",
+            "actualNext24hMm": 21.7,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T12:30:00+00:00",
+            "actualNext24hMm": 16.5,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T13:30:00+00:00",
+            "actualNext24hMm": 11.7,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-09-28T14:30:00+00:00",
+            "actualNext24hMm": 8.1,
+            "predictedProbability": 0.06352
+          },
+          {
+            "origin": "2025-10-29T20:30:00+00:00",
+            "actualNext24hMm": 22.5,
+            "predictedProbability": 0.06494
+          },
+          {
+            "origin": "2025-10-29T21:30:00+00:00",
+            "actualNext24hMm": 14.2,
+            "predictedProbability": 0.03364
+          },
+          {
+            "origin": "2025-10-29T22:30:00+00:00",
+            "actualNext24hMm": 8.8,
+            "predictedProbability": 0.06268
+          }
+        ]
+      },
+      "drift": {
+        "detector": "River ADWIN",
+        "events": [
+          {
+            "at": "2023-01-07T09:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.0015
+          },
+          {
+            "at": "2023-03-24T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00015000000000000001
+          },
+          {
+            "at": "2023-06-11T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00015000000000000001
+          },
+          {
+            "at": "2023-06-11T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00015000000000000001
+          },
+          {
+            "at": "2023-06-11T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00022500000000000002
+          },
+          {
+            "at": "2023-06-13T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00015000000000000001
+          },
+          {
+            "at": "2023-06-25T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00022500000000000002
+          },
+          {
+            "at": "2023-06-26T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.0003375
+          },
+          {
+            "at": "2023-06-26T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00022500000000000002
+          },
+          {
+            "at": "2023-06-27T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00022500000000000002
+          },
+          {
+            "at": "2023-06-29T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.0003375
+          },
+          {
+            "at": "2023-06-29T17:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2023-07-03T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.0003375
+          },
+          {
+            "at": "2023-07-04T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00050625
+          },
+          {
+            "at": "2023-07-05T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00050625
+          },
+          {
+            "at": "2023-07-05T01:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2023-07-05T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00050625
+          },
+          {
+            "at": "2023-07-07T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.000759375
+          },
+          {
+            "at": "2023-07-08T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.0003375
+          },
+          {
+            "at": "2023-07-08T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.000759375
+          },
+          {
+            "at": "2023-07-09T01:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2023-07-10T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.000759375
+          },
+          {
+            "at": "2023-07-11T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-12T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-16T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-19T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-20T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.00050625
+          },
+          {
+            "at": "2023-07-20T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-20T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-23T17:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2023-07-25T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-27T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-27T17:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2023-07-30T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-07-31T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-08-02T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-08-02T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.000759375
+          },
+          {
+            "at": "2023-08-04T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-08-09T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-08-10T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-08-15T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-08-17T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-08-30T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-01T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-07T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-08T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-08T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-08T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-09T17:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2023-09-11T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-13T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-19T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-23T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-23T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-24T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-24T09:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2023-09-25T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-09-29T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-10-02T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-10-04T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-10-06T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-10-07T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-10-16T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-11-30T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-11-30T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2023-12-03T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-01-03T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-01-05T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-01-13T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-05-31T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-01T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-06T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-08T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-10T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-12T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-19T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-21T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-28T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-28T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-29T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-06-29T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-09T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-10T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-11T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-14T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-15T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-17T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-18T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-19T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-19T01:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2024-07-21T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-25T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-28T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-29T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-31T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-07-31T01:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2024-08-01T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-03T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-04T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-05T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-11T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-13T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-16T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-16T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-16T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-24T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-24T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-24T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-25T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-25T09:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2024-08-28T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-08-30T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-05T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-13T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-14T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-20T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-24T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-25T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-25T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-26T09:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2024-09-26T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-27T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-29T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-29T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-09-29T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-03T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-07T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-09T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-11T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-12T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-13T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-15T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-19T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-28T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-28T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-10-30T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2024-11-03T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-01-03T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-01-05T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-01-11T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-02-24T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-08T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-08T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-08T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-09T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-22T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-22T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-23T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-23T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-27T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-27T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-05-31T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-01T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-05T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-08T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-13T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-13T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-14T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-15T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-19T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-19T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-20T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-20T01:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2025-06-22T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-24T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-25T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-06-29T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-01T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-10T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-12T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-13T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-16T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-23T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-23T23:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-25T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-29T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-07-31T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-07T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-07T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-07T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-15T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-15T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-15T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-16T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-19T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-20T09:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2025-08-22T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-23T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-24T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-26T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-08-27T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-02T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-10T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-16T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-16T10:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-16T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-18T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-22T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-23T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-24T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-24T01:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2025-09-28T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-09-29T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-04T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-05T09:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-09T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-10T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-13T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-18T01:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-20T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-20T17:30:00+00:00",
+            "model": "heavy-rain-event-classifier",
+            "signal": "classification-error",
+            "learningRate": 0.002
+          },
+          {
+            "at": "2025-10-26T15:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-27T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-27T18:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-28T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-10-31T09:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-11-05T01:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-11-10T07:30:00+00:00",
+            "model": "rainfall-6h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-11-11T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-11-13T17:30:00+00:00",
+            "model": "rainfall-24h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-11-30T02:30:00+00:00",
+            "model": "rainfall-1h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          },
+          {
+            "at": "2025-12-21T17:30:00+00:00",
+            "model": "rainfall-72h-regressor",
+            "signal": "absolute-error",
+            "learningRate": 0.001
+          }
+        ],
+        "learningRatePolicy": "Multiply online SGD learning rate by 1.5 after detector signal, subject to 0.001 regression and 0.002 classification caps; gradients are clipped to 1.0."
+      }
+    }
+  },
+  "limitations": [
+    "This is a single-gridpoint rainfall forecast replay against ERA5 reanalysis, not a flood, road-closure, or city-cascade warning model.",
+    "ERA5 reanalysis is not an independent gauge observation or archived issued forecast; metrics do not establish operational forecast skill.",
+    "The heavy-rain event label is a rainfall-amount category only. No verified flood incident labels are available for precision/recall of flood predictions.",
+    "Online binned calibration and conformal intervals are estimated from this data stream; report scores are not a deployment guarantee under spatial or temporal shift.",
+    "Only one Marine Lines location has historical input coverage. No all-India state/district accuracy or geographic transfer is claimed.",
+    "River is used by the offline training/evaluation CLI. The current Node/Vercel API does not host a Python River inference worker."
+  ]
+}

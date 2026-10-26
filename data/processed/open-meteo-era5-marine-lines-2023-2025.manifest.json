@@ -1,0 +1,72 @@
+{
+  "datasetId": "open-meteo-era5-marine-lines",
+  "schemaVersion": "1.0.0",
+  "provider": "Open-Meteo Historical Weather API",
+  "sourceId": "open-meteo-era5-archive",
+  "sourceUrl": "https://archive-api.open-meteo.com/v1/archive",
+  "documentation": "https://open-meteo.com/en/docs/historical-weather-api",
+  "license": "API data CC BY 4.0 attribution required; free API non-commercial use only; commercial use requires an appropriate subscription",
+  "model": "ERA5 reanalysis",
+  "dataClass": "historical_reanalysis",
+  "location": {
+    "cityId": "in-mh-mumbai",
+    "zoneId": "in-mh-mumbai-marine-lines",
+    "latitude": 18.943,
+    "longitude": 72.823,
+    "timezone": "Asia/Kolkata",
+    "approximateGridResolution": "0.25 degree (~25 km)"
+  },
+  "requested": {
+    "startDate": "2023-01-01",
+    "endDate": "2025-12-31"
+  },
+  "retrievedAt": "2026-10-26T02:40:16.474Z",
+  "rows": 26304,
+  "missingValueCount": 0,
+  "yearChunks": [
+    {
+      "year": 2023,
+      "retrievedAt": "2026-10-26T02:40:11.472Z",
+      "quality": {
+        "status": "complete",
+        "expectedHours": 8760,
+        "returnedHours": 8760,
+        "missingValues": 0
+      }
+    },
+    {
+      "year": 2024,
+      "retrievedAt": "2026-10-26T02:40:13.807Z",
+      "quality": {
+        "status": "complete",
+        "expectedHours": 8784,
+        "returnedHours": 8784,
+        "missingValues": 0
+      }
+    },
+    {
+      "year": 2025,
+      "retrievedAt": "2026-10-26T02:40:16.381Z",
+      "quality": {
+        "status": "complete",
+        "expectedHours": 8760,
+        "returnedHours": 8760,
+        "missingValues": 0
+      }
+    }
+  ],
+  "timestampSemantics": {
+    "validAt": "UTC instant for reanalysis hour",
+    "observedAt": null,
+    "issuedAt": null,
+    "ingestedAt": "2026-10-26T02:40:16.474Z"
+  },
+  "variables": {
+    "precipitationMm": "preceding hour total, mm",
+    "temperatureC": "2m instant, °C",
+    "relativeHumidityPct": "2m instant, percent",
+    "windSpeedKmh": "10m instant, km/h"
+  },
+  "output": "C:\\Users\\Omkar Kudalkar\\OneDrive\\Desktop\\pravash\\data\\processed\\open-meteo-era5-marine-lines-2023-2025.csv",
+  "licenseUrl": "https://open-meteo.com/en/terms"
+}

@@ -1,0 +1,660 @@
+/**
+ * PRAVAAH — 3D Urban Flood & Traffic Digital Twin Styles
+ */
+
+.pravaah-root {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: min(440px, calc(100vw - 24px));
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
+  background: rgba(13, 23, 18, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(45, 63, 52, 0.85);
+  border-radius: 12px;
+  color: #e2e8f0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.15);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pravaah-root.minimized {
+  width: min(320px, calc(100% - 24px));
+  max-height: 60px;
+}
+
+/* Header */
+.pravaah-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(45, 63, 52, 0.7);
+  background: linear-gradient(180deg, rgba(23, 35, 29, 0.8) 0%, rgba(13, 23, 18, 0.9) 100%);
+}
+
+.pravaah-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pravaah-badge {
+  background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.8px;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+.pravaah-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.3px;
+}
+
+.pravaah-subtitle {
+  font-size: 11px;
+  color: #94a3b8;
+  display: block;
+}
+
+.pravaah-header-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.pravaah-icon-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pravaah-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* Big Hero Run Scenario CTA */
+.pravaah-run-cta {
+  margin: 12px 16px 8px 16px;
+  background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0284c7 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.pravaah-run-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.6);
+  filter: brightness(1.08);
+}
+
+.pravaah-run-cta.running {
+  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+}
+
+.pravaah-cta-pulse {
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: pravaah-pulse 1.4s infinite;
+}
+
+@keyframes pravaah-pulse {
+  0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+/* KPI Bar */
+.pravaah-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 8px 16px;
+}
+
+.pravaah-kpi-card {
+  background: rgba(23, 35, 29, 0.6);
+  border: 1px solid rgba(45, 63, 52, 0.6);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.pravaah-kpi-label {
+  font-size: 10px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.pravaah-kpi-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.pravaah-kpi-val.highlight {
+  color: #38bdf8;
+}
+
+.pravaah-kpi-val.warning {
+  color: #f59e0b;
+}
+
+.pravaah-kpi-val.danger {
+  color: #ef4444;
+}
+
+/* Stage Stepper */
+.pravaah-stages-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(20, 30, 25, 0.4);
+  border-top: 1px solid rgba(45, 63, 52, 0.5);
+  border-bottom: 1px solid rgba(45, 63, 52, 0.5);
+  gap: 4px;
+}
+
+.pravaah-stage-dot {
+  flex: 1;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pravaah-stage-dot:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+}
+
+.pravaah-stage-dot.active {
+  background: #0284c7;
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.pravaah-stage-dot.completed {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #10b981;
+}
+
+/* Current Stage Banner */
+.pravaah-stage-banner {
+  padding: 10px 16px;
+  background: rgba(2, 132, 199, 0.12);
+  border-left: 3px solid #0284c7;
+  margin: 8px 16px;
+  border-radius: 0 6px 6px 0;
+}
+
+.pravaah-stage-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.pravaah-stage-heading {
+  margin: 2px 0 4px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.pravaah-stage-desc {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+/* Tabs */
+.pravaah-nav-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(45, 63, 52, 0.7);
+  background: rgba(13, 23, 18, 0.5);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pravaah-tab {
+  flex: 1;
+  min-width: 80px;
+  padding: 8px 6px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.pravaah-tab:hover {
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.pravaah-tab.active {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+}
+
+/* Tab Content Scroll Body */
+.pravaah-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+  max-height: 380px;
+}
+
+/* Incidents Feed */
+.pravaah-incident-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: rgba(23, 35, 29, 0.5);
+  border: 1px solid rgba(45, 63, 52, 0.6);
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.pravaah-incident-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.pravaah-incident-time {
+  font-size: 10px;
+  color: #64748b;
+  font-family: monospace;
+}
+
+.pravaah-incident-badge {
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pravaah-incident-badge.critical {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.pravaah-incident-badge.warning {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.pravaah-incident-badge.info {
+  background: rgba(14, 165, 233, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.4);
+}
+
+/* Controls Bar at bottom */
+.pravaah-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(20, 30, 25, 0.7);
+  border-top: 1px solid rgba(45, 63, 52, 0.7);
+  gap: 12px;
+}
+
+.pravaah-slider-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.pravaah-slider {
+  flex: 1;
+  accent-color: #0284c7;
+  cursor: pointer;
+}
+
+/* Inspector Cards Floating */
+.pravaah-inspector-card {
+  position: absolute;
+  bottom: 84px;
+  left: 360px;
+  width: 340px;
+  background: rgba(13, 23, 18, 0.94);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(45, 63, 52, 0.9);
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #f1f5f9;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+  z-index: 95;
+  animation: card-appear 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes card-appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pravaah-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.pravaah-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.pravaah-card-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.pravaah-prop-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 11px;
+  border-bottom: 1px solid rgba(45, 63, 52, 0.4);
+}
+
+.pravaah-prop-key {
+  color: #94a3b8;
+}
+
+.pravaah-prop-val {
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+/* Basemap Quick Selector */
+.pravaah-basemap-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(13, 23, 18, 0.6);
+  border-bottom: 1px solid rgba(45, 63, 52, 0.5);
+  font-size: 11px;
+}
+
+.pravaah-basemap-label {
+  color: #94a3b8;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.pravaah-basemap-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pravaah-basemap-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.pravaah-basemap-btn.active {
+  background: #0284c7;
+  border-color: #38bdf8;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+/* Routing UI */
+.pravaah-routing-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.pravaah-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pravaah-form-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pravaah-select {
+  background: rgba(13, 23, 18, 0.85);
+  border: 1px solid rgba(45, 63, 52, 0.85);
+  color: #f1f5f9;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  outline: none;
+  cursor: pointer;
+}
+
+.pravaah-select:focus {
+  border-color: #06b6d4;
+}
+
+.pravaah-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #e2e8f0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pravaah-btn-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+}
+
+.pravaah-btn-primary:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #0f766e 100%);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
+}
+
+.pravaah-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.pravaah-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.pravaah-route-card {
+  background: rgba(23, 35, 29, 0.6);
+  border: 1px solid rgba(45, 63, 52, 0.7);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.pravaah-route-card.selected {
+  border-color: #06b6d4;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+}
+
+.pravaah-root :is(button, select, input):focus-visible {
+  outline: 2px solid #67c8ff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 980px) {
+  .pravaah-root {
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    width: min(480px, calc(100% - 24px));
+    max-height: min(46vh, 400px);
+  }
+
+  .pravaah-root.minimized {
+    width: min(320px, calc(100% - 24px));
+    max-height: 60px;
+  }
+
+  .pravaah-body {
+    max-height: none;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 540px) {
+  .pravaah-root {
+    max-height: min(50vh, 380px);
+    border-radius: 10px;
+  }
+
+  .pravaah-header {
+    gap: 8px;
+    padding: 10px 11px;
+  }
+
+  .pravaah-title-group {
+    gap: 7px;
+    min-width: 0;
+  }
+
+  .pravaah-title {
+    font-size: 12px;
+  }
+
+  .pravaah-subtitle {
+    font-size: 10px;
+  }
+
+  .pravaah-basemap-row {
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .pravaah-basemap-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pravaah-kpi-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+    padding: 7px 9px;
+  }
+
+  .pravaah-kpi-card {
+    min-width: 0;
+    padding: 7px;
+  }
+
+  .pravaah-kpi-val {
+    font-size: 13px;
+  }
+}
+

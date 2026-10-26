@@ -1,0 +1,19 @@
+{
+  "featureDatasetId": "era5-rainfall-features-2023-2025-v1",
+  "featureVersion": "rainfall-features-v1",
+  "generatedAt": "2026-10-26T02:57:35.909Z",
+  "inputPath": "C:\\Users\\Omkar Kudalkar\\OneDrive\\Desktop\\pravash\\data\\processed\\open-meteo-era5-marine-lines-2023-2025.csv",
+  "inputSha256": "f98adc89a21ebbf4fb43ebeecc2562c26b3d722433ff44c0a0f41586af09d84f",
+  "outputSha256": "8c07dbfbc0b9c39a3b0b6533cc959ba27b198a99fe9922ecd9de754718fabe0f",
+  "rows": 26160,
+  "rowsWithMissingFeaturesOrTargets": 0,
+  "timezone": "Asia/Kolkata",
+  "featureRule": "Every feature uses values at or before origin_valid_at_utc; every target sums the following hours only.",
+  "windows": [
+    1,
+    6,
+    24,
+    72
+  ],
+  "dataClass": "historical_reanalysis"
+}

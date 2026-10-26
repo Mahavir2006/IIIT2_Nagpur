@@ -1,0 +1,547 @@
+/* =============================================================
+   3D SCENARIO — conceptual scenario preview
+   =============================================================
+
+   Extends the existing land-potential visual language rather than
+   inventing one: the same ivory cards, the same compact control
+   sizing, the same restrained amber/gold accents, the same dark
+   forest-green chrome. Nothing here glows, pulses or animates
+   decoratively — a government intelligence tool should read as
+   considered, not as a game (spec §11, §37, §49).
+   ============================================================= */
+
+/* ------------------------------------------------- floating top bar -- */
+
+.g3d-sc-bar {
+  position: absolute;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 96px);
+  padding: 6px 8px;
+  border: 1px solid rgba(23, 35, 29, 0.16);
+  border-radius: 12px;
+  background: rgba(248, 247, 241, 0.96);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(13, 20, 17, 0.18);
+  animation: g3d-sc-in 220ms ease-out;
+}
+
+@keyframes g3d-sc-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g3d-sc-bar,
+  .g3d-sc-strip {
+    animation: none;
+  }
+}
+
+.g3d-sc-bar-lead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 8px;
+  border-right: 1px solid rgba(23, 35, 29, 0.12);
+}
+
+.g3d-sc-kind {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+/* badge variant that reads as "generated", distinct from the pink SCENARIO */
+.g3d-badge.simulated {
+  background: #f2e7cf;
+  color: #7a5a12;
+}
+
+/* ------------------------------------------------------- type picker -- */
+
+.g3d-sc-picker {
+  position: relative;
+}
+
+.g3d-sc-type {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid rgba(23, 35, 29, 0.18);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--foreground);
+  font-size: 10.5px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.g3d-sc-type:hover {
+  border-color: rgba(23, 35, 29, 0.34);
+}
+
+.g3d-sc-type svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 160ms ease;
+}
+
+.g3d-sc-type svg.open {
+  transform: rotate(180deg);
+}
+
+.g3d-sc-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  min-width: 232px;
+  padding: 5px;
+  border: 1px solid rgba(23, 35, 29, 0.16);
+  border-radius: 10px;
+  background: #f8f7f1;
+  box-shadow: 0 12px 30px rgba(13, 20, 17, 0.24);
+}
+
+.g3d-sc-menu-head {
+  padding: 5px 7px 6px;
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+}
+
+.g3d-sc-menu button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 10.5px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.g3d-sc-menu button:hover {
+  background: rgba(23, 35, 29, 0.06);
+}
+
+.g3d-sc-menu button.on {
+  background: rgba(13, 107, 69, 0.1);
+  font-weight: 700;
+}
+
+.g3d-sc-menu button em {
+  margin-left: auto;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+}
+
+.g3d-sc-menu-foot {
+  margin-top: 4px;
+  padding: 6px 7px 3px;
+  border-top: 1px dashed rgba(23, 35, 29, 0.14);
+  color: var(--muted-foreground);
+  font-size: 8.5px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------- segmented mode -- */
+
+.g3d-sc-seg {
+  display: flex;
+  overflow: hidden;
+  border: 1px solid rgba(23, 35, 29, 0.18);
+  border-radius: 8px;
+}
+
+.g3d-sc-seg button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 9px;
+  border: 0;
+  border-right: 1px solid rgba(23, 35, 29, 0.12);
+  background: #fff;
+  color: var(--muted-foreground);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.g3d-sc-seg button:last-child {
+  border-right: 0;
+}
+
+.g3d-sc-seg button svg {
+  width: 11px;
+  height: 11px;
+}
+
+.g3d-sc-seg button:hover {
+  color: var(--foreground);
+}
+
+.g3d-sc-seg button.on {
+  background: #0d6b45;
+  color: #f8f7f1;
+}
+
+/* ------------------------------------------------------- opacity -- */
+
+.g3d-sc-opacity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 4px;
+}
+
+.g3d-sc-opacity-end {
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.g3d-sc-opacity input[type="range"] {
+  width: 88px;
+  accent-color: #0d6b45;
+}
+
+/* ----------------------------------------------------- context rings -- */
+
+.g3d-sc-rings {
+  display: flex;
+  gap: 3px;
+}
+
+.g3d-sc-rings button {
+  height: 24px;
+  padding: 0 6px;
+  border: 1px solid rgba(23, 35, 29, 0.16);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--muted-foreground);
+  font-size: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.g3d-sc-rings button.on {
+  border-color: #0d6b45;
+  background: rgba(13, 107, 69, 0.12);
+  color: #0d6b45;
+}
+
+/* ------------------------------------------------------------- exit -- */
+
+.g3d-sc-exit {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 9px;
+  border: 1px solid rgba(180, 87, 79, 0.4);
+  border-radius: 8px;
+  background: #fff;
+  color: #9c4239;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.g3d-sc-exit:hover {
+  background: rgba(180, 87, 79, 0.1);
+}
+
+.g3d-sc-exit svg {
+  width: 11px;
+  height: 11px;
+}
+
+.g3d-sc-limited {
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #fbe9d0;
+  color: #8a6410;
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------ element count strip -- */
+
+.g3d-sc-strip {
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 29;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 9px;
+  max-width: calc(100% - 96px);
+  padding: 4px 9px;
+  border: 1px solid rgba(23, 35, 29, 0.12);
+  border-radius: 9px;
+  background: rgba(248, 247, 241, 0.92);
+  font-size: 8px;
+  color: var(--muted-foreground);
+}
+
+.g3d-sc-strip-head {
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--foreground);
+}
+
+.g3d-sc-strip-note {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------ inspector -- */
+
+.g3d-sc-hero .g3d-sc-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 2px 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(23, 35, 29, 0.14);
+}
+
+.g3d-sc-title b {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.g3d-sc-tabs {
+  display: flex;
+  gap: 3px;
+  margin-top: 10px;
+  padding: 3px;
+  border: 1px solid rgba(23, 35, 29, 0.12);
+  border-radius: 9px;
+  background: rgba(23, 35, 29, 0.03);
+}
+
+.g3d-sc-tabs button {
+  flex: 1;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.g3d-sc-tabs button.on {
+  background: #0d6b45;
+  color: #f8f7f1;
+}
+
+/* ---------------------------------------------------- why / compare -- */
+
+.g3d-sc-why h4 {
+  margin: 11px 0 5px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+}
+
+.g3d-sc-cmp-row {
+  margin-top: 8px;
+  padding: 8px 9px;
+  border: 1px solid rgba(23, 35, 29, 0.12);
+  border-radius: 10px;
+  background: rgba(23, 35, 29, 0.02);
+}
+
+.g3d-sc-cmp-row.on {
+  border-color: rgba(13, 107, 69, 0.5);
+  background: rgba(13, 107, 69, 0.07);
+}
+
+.g3d-sc-cmp-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+
+.g3d-sc-cmp-head b {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.g3d-sc-cmp-score {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.g3d-sc-cmp-view {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 7px;
+  padding: 5px 9px;
+  border: 1px solid rgba(13, 107, 69, 0.4);
+  border-radius: 7px;
+  background: #fff;
+  color: #0d6b45;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.g3d-sc-cmp-view:hover {
+  background: rgba(13, 107, 69, 0.1);
+}
+
+.g3d-sc-cmp-view svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* --------------------------------------------- element inspection -- */
+
+.g3d-sc-element .g3d-lp-warn {
+  color: #8a6410;
+}
+
+/* --------------------------------------------- field verification -- */
+
+.g3d-sc-checkrow {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px dashed rgba(23, 35, 29, 0.14);
+}
+
+.g3d-sc-checkrow b {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10px;
+}
+
+.g3d-sc-fieldstatus {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 9px;
+  color: var(--muted-foreground);
+  font-size: 9px;
+}
+
+/* ------------------------------------------- inspector CTA block -- */
+
+.g3d-lp-scenario-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(23, 35, 29, 0.16);
+}
+
+.g3d-lp-scenario-view,
+.g3d-lp-scenario-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+}
+
+.g3d-lp-scenario-view svg,
+.g3d-lp-scenario-live svg {
+  width: 13px;
+  height: 13px;
+}
+
+.g3d-lp-scenario-live {
+  border: 1px solid rgba(13, 107, 69, 0.45);
+  background: rgba(13, 107, 69, 0.1);
+  color: #0d6b45;
+  cursor: pointer;
+}
+
+.g3d-lp-scenario-cta .g3d-hint {
+  flex-basis: 100%;
+  margin: 2px 0 0;
+}
+
+/* --------------------------------------------------------- responsive -- */
+
+@media (max-width: 1240px) {
+  .g3d-sc-bar {
+    max-width: calc(100% - 700px);
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 980px) {
+  .g3d-sc-bar {
+    left: 12px;
+    right: 12px;
+    top: 54px;
+    max-width: none;
+    transform: none;
+    flex-wrap: wrap;
+  }
+  .g3d-sc-strip {
+    display: none;
+  }
+  @keyframes g3d-sc-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,20 @@
+# Normalise line endings so tooling (Prettier via ESLint) sees LF everywhere.
+# Without this, `npm run lint` reports tens of thousands of CRLF-only errors.
+* text=auto eol=lf
+
+# Keep genuinely binary assets binary.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary
+*.wasm binary
+*.zip binary
+
+# Generated / vendored trees that must never be rewritten.
+public/cesium/** binary
+docs/readme/*.svg text eol=lf

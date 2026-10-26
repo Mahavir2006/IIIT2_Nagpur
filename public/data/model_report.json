@@ -1,0 +1,85 @@
+{
+  "task": "statutory applicability ranking over real Indian land legislation",
+  "labels": "real provision_type / section_type / legal_subject extracted upstream from the statute text; not hand-labelled, not synthetic",
+  "corpus": {
+    "provisions": 71755,
+    "enactments": 5654,
+    "jurisdictions": 37,
+    "source": "open-india-law parquet + RUDXLABS metadata; both from India Code"
+  },
+  "cv": {
+    "scheme": "GroupKFold(5) grouped by enactment",
+    "auc_mean": 0.9697,
+    "auc_std": 0.0124,
+    "f1_mean": 0.853,
+    "f1_std": 0.0206,
+    "folds": [
+      {
+        "fold": 1,
+        "train_rows": 57404,
+        "test_rows": 14351,
+        "test_enactments": 1130,
+        "auc": 0.9818,
+        "f1": 0.8857,
+        "secs": 774
+      },
+      {
+        "fold": 2,
+        "train_rows": 57404,
+        "test_rows": 14351,
+        "test_enactments": 1130,
+        "auc": 0.9765,
+        "f1": 0.8558,
+        "secs": 764
+      },
+      {
+        "fold": 3,
+        "train_rows": 57404,
+        "test_rows": 14351,
+        "test_enactments": 1131,
+        "auc": 0.9739,
+        "f1": 0.8517,
+        "secs": 750
+      },
+      {
+        "fold": 4,
+        "train_rows": 57404,
+        "test_rows": 14351,
+        "test_enactments": 1131,
+        "auc": 0.946,
+        "f1": 0.8208,
+        "secs": 734
+      },
+      {
+        "fold": 5,
+        "train_rows": 57404,
+        "test_rows": 14351,
+        "test_enactments": 1132,
+        "auc": 0.9701,
+        "f1": 0.851,
+        "secs": 740
+      }
+    ]
+  },
+  "baseline": {
+    "constant_predictor_auc": 0.5,
+    "mean_positive_rate": 0.1038
+  },
+  "config": {
+    "max_features": 12000,
+    "rounds": 50,
+    "max_depth": 5,
+    "nthread": 4,
+    "seed": 20261002,
+    "formulation": "one-vs-rest: 11 independent binary:logistic boosters (multi:labelsoftprob is absent from this XGBoost build)"
+  },
+  "honesty": {
+    "tuned_on": "training folds only; the threshold sweep uses training predictions",
+    "held_out_scored": "once per fold, no iteration against the test split",
+    "leakage_control": "split is by enactment, so sibling sections never straddle a fold; the Act title is stripped from the scored text",
+    "known_limitations": [
+      "labels come from the upstream structural extraction, not from a court or revenue officer, so they reflect the statute's own structure",
+      "no outcome forecasting: public Indian sources do not publish policy outcome series, so this ranks applicable law and does not predict policy results"
+    ]
+  }
+}

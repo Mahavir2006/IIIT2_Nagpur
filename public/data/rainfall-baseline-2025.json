@@ -1,0 +1,338 @@
+{
+  "reportId": "rainfall-baseline-2025-era5-marine-lines-v1",
+  "generatedAt": "2026-10-26T03:06:31.449Z",
+  "dataset": {
+    "path": "C:\\Users\\Omkar Kudalkar\\OneDrive\\Desktop\\pravash\\data\\processed\\open-meteo-era5-marine-lines-2023-2025.csv",
+    "sha256": "f98adc89a21ebbf4fb43ebeecc2562c26b3d722433ff44c0a0f41586af09d84f",
+    "rows": 26304,
+    "dataClass": "historical_reanalysis",
+    "provider": "Open-Meteo Historical Weather API",
+    "attributionUrl": "https://open-meteo.com/en/docs/historical-weather-api",
+    "license": "CC BY 4.0; free API non-commercial use only",
+    "licenseUrl": "https://open-meteo.com/en/terms",
+    "model": "ERA5",
+    "location": {
+      "cityId": "in-mh-mumbai",
+      "zoneId": "in-mh-mumbai-marine-lines",
+      "latitude": 18.943,
+      "longitude": 72.823
+    }
+  },
+  "target": "sum of hourly ERA5 reanalysis precipitation over the forecast horizon (mm)",
+  "split": {
+    "method": "chronological held-out Asia/Kolkata calendar year",
+    "timezone": "Asia/Kolkata",
+    "testStart": "2024-12-31T18:30:00.000Z",
+    "testEndExclusive": "2025-12-31T18:30:00.000Z",
+    "priorContextHours": 168
+  },
+  "baselines": [
+    {
+      "id": "last-hour-persistence",
+      "description": "Repeat the last available hourly precipitation amount across the requested horizon."
+    },
+    {
+      "id": "weekly-seasonal-naive",
+      "description": "Reuse the same target-window precipitation from seven days before the prediction origin."
+    }
+  ],
+  "metrics": [
+    {
+      "method": "last-hour-persistence",
+      "horizonHours": 1,
+      "n": 8759,
+      "maeMm": 0.09615252882749412,
+      "rmseMm": 0.3214307551161084,
+      "actualMeanMm": 0.25514328119647883,
+      "predictedMeanMm": 0.25514328119647883
+    },
+    {
+      "method": "weekly-seasonal-naive",
+      "horizonHours": 1,
+      "n": 8759,
+      "maeMm": 0.34470830003424235,
+      "rmseMm": 0.9943653331652845,
+      "actualMeanMm": 0.25514328119647883,
+      "predictedMeanMm": 0.25515469802488394
+    },
+    {
+      "method": "last-hour-persistence",
+      "horizonHours": 6,
+      "n": 8754,
+      "maeMm": 0.8803746858578951,
+      "rmseMm": 2.84780657430765,
+      "actualMeanMm": 1.5317340644276898,
+      "predictedMeanMm": 1.531734064427715
+    },
+    {
+      "method": "weekly-seasonal-naive",
+      "horizonHours": 6,
+      "n": 8754,
+      "maeMm": 1.979803518391595,
+      "rmseMm": 5.374959712618193,
+      "actualMeanMm": 1.5317340644276898,
+      "predictedMeanMm": 1.531802604523646
+    },
+    {
+      "method": "last-hour-persistence",
+      "horizonHours": 24,
+      "n": 8736,
+      "maeMm": 4.51197344322344,
+      "rmseMm": 14.446171955141272,
+      "actualMeanMm": 6.139560439560435,
+      "predictedMeanMm": 6.139560439560539
+    },
+    {
+      "method": "weekly-seasonal-naive",
+      "horizonHours": 24,
+      "n": 8736,
+      "maeMm": 7.345650183150197,
+      "rmseMm": 17.079755343166273,
+      "actualMeanMm": 6.139560439560435,
+      "predictedMeanMm": 6.1398351648351595
+    },
+    {
+      "method": "last-hour-persistence",
+      "horizonHours": 72,
+      "n": 8688,
+      "maeMm": 15.829880294659237,
+      "rmseMm": 46.994038354710256,
+      "actualMeanMm": 18.520441988950292,
+      "predictedMeanMm": 18.520441988950463
+    },
+    {
+      "method": "weekly-seasonal-naive",
+      "horizonHours": 72,
+      "n": 8688,
+      "maeMm": 18.506215469613238,
+      "rmseMm": 37.293122603964356,
+      "actualMeanMm": 18.520441988950292,
+      "predictedMeanMm": 18.52127071823206
+    }
+  ],
+  "models": [
+    {
+      "id": "ridge-rainfall-v1",
+      "method": "ridge regression",
+      "ridgeLambda": 1,
+      "trainingRowsByHorizon": {
+        "1": 17375,
+        "6": 17370,
+        "24": 17352,
+        "72": 17304
+      },
+      "features": [
+        "rain_last_hour_mm",
+        "rain_previous_6h_mm",
+        "rain_previous_24h_mm",
+        "rain_previous_72h_mm",
+        "rain_same_future_window_previous_week_mm",
+        "local_hour_sin",
+        "local_hour_cos",
+        "local_year_day_sin",
+        "local_year_day_cos"
+      ],
+      "trainingCutoff": "2024-12-31T18:30:00.000Z",
+      "artifactsByHorizon": {
+        "1": {
+          "means": [
+            0.2403971223021538,
+            1.4423827338129425,
+            5.76953093525181,
+            17.308592805755175,
+            0.24039136690647034,
+            0.000014896060149711373,
+            -0.00005559285331163806,
+            -0.0005783534864491932,
+            -0.009703444605087238
+          ],
+          "scales": [
+            0.7206933216538763,
+            4.012138197085236,
+            14.227675997785905,
+            38.14762308300616,
+            0.7206948421245838,
+            0.7071244030384716,
+            0.7070891565531593,
+            0.7105045579762053,
+            0.7036254555977041
+          ],
+          "coefficients": [
+            0.24039712230216043,
+            0.6143273463562767,
+            -0.0066657363180670755,
+            0.05277797792844263,
+            0.00958603194602725,
+            0.00604942661083766,
+            0.004385687459560743,
+            0.00025542802028593014,
+            -0.005034404233815736,
+            -0.010990224914848763
+          ]
+        },
+        "6": {
+          "means": [
+            0.24046632124351885,
+            1.4427979274611327,
+            5.771191709844571,
+            17.313575129533458,
+            1.442763385146798,
+            0.0002474310337571267,
+            -0.0001898605098654702,
+            -0.0005776963659423264,
+            -0.009994089060970296
+          ],
+          "scales": [
+            0.7207854980402928,
+            4.012640964302093,
+            14.229386800694044,
+            38.15198264863609,
+            4.012652953860115,
+            0.7070863833478258,
+            0.7071271096591702,
+            0.7106068096542999,
+            0.7035181209632684
+          ],
+          "coefficients": [
+            1.4427979274610931,
+            2.5694464430246007,
+            -0.05601192202273992,
+            0.8652675274301467,
+            0.11423510234326179,
+            0.09747695958725314,
+            0.05666263858148205,
+            0.0345792345898572,
+            -0.08324538377199005,
+            -0.18274268707888994
+          ]
+        },
+        "24": {
+          "means": [
+            0.2407157676348503,
+            1.4442946058091213,
+            5.777178423236526,
+            17.33153526970932,
+            5.777040110650073,
+            -7.398607621745618e-17,
+            -3.700103591175242e-17,
+            -0.0005667947760170326,
+            -0.011041729872053626
+          ],
+          "scales": [
+            0.7211176199760382,
+            4.014452446390342,
+            14.235550540279402,
+            38.167688357121364,
+            14.235606184753843,
+            0.7071067811865476,
+            0.7071067811865475,
+            0.7109751954175124,
+            0.7031301660760597
+          ],
+          "coefficients": [
+            5.777178423236547,
+            4.822981276167117,
+            0.9109352277758787,
+            4.404601466646792,
+            0.9282871438816612,
+            0.7356231009005765,
+            -0.045864412584247394,
+            0.11418532227419093,
+            -0.6425407661233935,
+            -1.4573946750371052
+          ]
+        },
+        "72": {
+          "means": [
+            0.24138349514562657,
+            1.448300970873779,
+            5.793203883495157,
+            17.379334257974875,
+            17.37919556171971,
+            -7.398599635035248e-17,
+            -3.700101816350715e-17,
+            -0.0004721580512807622,
+            -0.01384447870949427
+          ],
+          "scales": [
+            0.7220054805595116,
+            4.0192947295528,
+            14.252024377009816,
+            38.20978248377942,
+            38.20984538657497,
+            0.7071067811865476,
+            0.7071067811865475,
+            0.711958143696992,
+            0.7020852577141696
+          ],
+          "coefficients": [
+            17.379611650485117,
+            8.363257323204348,
+            2.507186261578186,
+            5.965846457356477,
+            7.5391083182826915,
+            2.935512908643418,
+            -0.07602131400722618,
+            0.21805918523516046,
+            -2.966442767575187,
+            -7.161648003648185
+          ]
+        }
+      },
+      "modelArtifactSha256": "01ea5814bacf826717392d24f3e82f3c5240ebcb27f8ed9bf1ea2703200daf53",
+      "trainingPeriod": {
+        "start": "2022-12-31T18:30:00.000Z",
+        "endExclusive": "2024-12-31T18:30:00.000Z"
+      },
+      "metrics": [
+        {
+          "method": "ridge-regression",
+          "horizonHours": 1,
+          "n": 8759,
+          "maeMm": 0.10096750996543122,
+          "rmseMm": 0.31337416696958453,
+          "actualMeanMm": 0.25514328119647883,
+          "predictedMeanMm": 0.256025978398044
+        },
+        {
+          "method": "ridge-regression",
+          "horizonHours": 6,
+          "n": 8754,
+          "maeMm": 0.8340698908678204,
+          "rmseMm": 2.4959235920311085,
+          "actualMeanMm": 1.5317340644276898,
+          "predictedMeanMm": 1.5457282526221736
+        },
+        {
+          "method": "ridge-regression",
+          "horizonHours": 24,
+          "n": 8736,
+          "maeMm": 3.8851809040551517,
+          "rmseMm": 10.185460686784557,
+          "actualMeanMm": 6.139560439560435,
+          "predictedMeanMm": 6.227820378853626
+        },
+        {
+          "method": "ridge-regression",
+          "horizonHours": 72,
+          "n": 8688,
+          "maeMm": 12.654084558502108,
+          "rmseMm": 24.630215892113025,
+          "actualMeanMm": 18.520441988950292,
+          "predictedMeanMm": 18.946067721571392
+        }
+      ],
+      "limitations": [
+        "This is a locally fitted regularized linear model, not a pretrained foundation model.",
+        "Training and test targets are ERA5 reanalysis at the same grid point; scores are not independent operational forecast skill.",
+        "The model forecasts precipitation totals only. It does not estimate flood risk, four-state probabilities, or cascade impacts."
+      ]
+    }
+  ],
+  "limitations": [
+    "ERA5 is atmospheric reanalysis, not an independent rain-gauge observation or archived issued forecast.",
+    "Scores measure baseline agreement with this reanalysis target at one grid location; they are not operational forecast skill, flood-risk accuracy, or warning lead time.",
+    "No flood-event labels, road-impact labels, calibrated risk probabilities, or causal impact outcomes are evaluated.",
+    "Reanalysis grid resolution is approximately 0.25 degrees and cannot resolve street-scale rainfall variation."
+  ]
+}
